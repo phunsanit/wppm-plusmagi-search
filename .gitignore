@@ -1,14 +1,13 @@
 !Documents/
-plusmagi-search.zip
-*.zip
 .DS_Store
 
 # System files
 thumbs.db
 
 # Build
-build/
-temp_build/
-node_modules/
 .idea/
 .vscode/
+*.zip
+build/
+node_modules/
+temp_build/

@@ -1,6 +1,6 @@
 # PlusMagi Search
 
-A frontend search plugin mimicking WordPress admin search with strict role-based access control.
+A WordPress plugin that enables detailed and powerful search capabilities for your site.
 
 ## Features
 

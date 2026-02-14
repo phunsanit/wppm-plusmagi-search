@@ -8,11 +8,11 @@ Stable tag: 1.0.0
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
-A frontend search plugin that mimics the WordPress admin search functionality, with role-based access control and deep filtering.
+A WordPress plugin that enables detailed and powerful search capabilities for your site.
 
 == Description ==
 
-PlusMagi Search allows you to bring the power of the WordPress admin post search to the frontend. It includes smart role-based access control and advanced filtering options.
+PlusMagi Search is a powerful plugin that enhances your site's search functionality, allowing users to perform detailed searches across posts, categories, and tags with ease. It includes smart role-based access control and advanced filtering options.
 
 = Features =
 
