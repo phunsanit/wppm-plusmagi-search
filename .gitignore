@@ -1,16 +1,14 @@
-.DS_Store
+!Documents/
+plusmagi-search.zip
 *.zip
-plusmagi-search.zip# System files
 .DS_Store
-Thumbs.db
 
-# Build artifacts
-*.zip
+# System files
+thumbs.db
+
+# Build
 build/
 temp_build/
 node_modules/
 .idea/
 .vscode/
-
-# Ignore the build directory specifically if it exists in root or parallel
-../build/
