@@ -32,11 +32,10 @@ A frontend search plugin mimicking WordPress admin search with strict role-based
 To build the plugin zip file:
 
 ```bash
-cd SourceCode
-./scripts/build.sh
+./build.sh
 ```
 
-The output file will be located at `../build/plusmagi-search.zip`.
+The output file will be located at `build/plusmagi-search.zip`.
 
 ## Usage
 
