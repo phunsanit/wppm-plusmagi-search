@@ -17,20 +17,20 @@ PlusMagi Search is a powerful plugin that enhances your site's search functional
 = Features =
 
 *   **Strict Access Control**:
-    *   Public Users: See only published content.
-    *   Authors: See their drafts/pending posts + all published content.
-    *   Editors/Admins: See all content (Drafts, Private, Future, etc.).
+	*   Public Users: See only published content.
+	*   Authors: See their drafts/pending posts + all published content.
+	*   Editors/Admins: See all content (Drafts, Private, Future, etc.).
 *   **Deep Search**:
-    *   **Custom Fields**: Automatically searches post meta (e.g., SKUs, internal codes).
-    *   **Taxonomies**: Searches Categories and Tags alongside posts.
+	*   **Custom Fields**: Automatically searches post meta (e.g., SKUs, internal codes).
+	*   **Taxonomies**: Searches Categories and Tags alongside posts.
 *   **Search Prefixes**:
-    *   `post:` - Search specific pages/posts.
-    *   `tag:` - Search specific tags.
-    *   `category:` - Search specific categories.
+	*   `post:` - Search specific pages/posts.
+	*   `tag:` - Search specific tags.
+	*   `category:` - Search specific categories.
 *   **Rich UI**:
-    *   **Tabs**: Results organized into "Posts", "Category", "Tag".
-    *   **Thumbnails**: Shows featured images if available.
-    *   **Theme Integration**: Inherits site colors automatically.
+	*   **Tabs**: Results organized into "Posts", "Category", "Tag".
+	*   **Thumbnails**: Shows featured images if available.
+	*   **Theme Integration**: Inherits site colors automatically.
 *   **High Performance**: AJAX-powered, lightweight, no bloat.
 *   **Developer Friendly**: Simple shortcode `[plusmagi_search]` and Block support.
 

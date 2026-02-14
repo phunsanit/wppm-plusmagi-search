@@ -1,41 +1,64 @@
 #!/bin/bash
 
-# Navigate to the script's directory (project root)
-cd "$(dirname "$0")" || exit
-
+# Configuration
 PLUGIN_SLUG="plusmagi-search"
 SOURCE_DIR="./SourceCode"
 BUILD_DIR="./build"
 ZIP_FILE="${BUILD_DIR}/${PLUGIN_SLUG}.zip"
 TEMP_DIR="temp_build"
 
-echo "Building ${PLUGIN_SLUG}..."
+main() {
+	# Navigate to the script's directory (project root)
+	cd "$(dirname "$0")" || exit
 
-# Setup build directory
-mkdir -p "$BUILD_DIR"
+	echo "Building ${PLUGIN_SLUG}..."
 
-# Cleanup previous build
-rm -rf "$TEMP_DIR"
-rm -f "$ZIP_FILE"
+	setup_build_dir
+	cleanup_previous_build
+	prepare_structure
+	copy_files
+	create_zip
+	cleanup_temp
 
-# Prepare temp directory structure
-mkdir -p "$TEMP_DIR/$PLUGIN_SLUG"
+	echo "Build complete: $(pwd)/build/${PLUGIN_SLUG}.zip"
+}
 
-# Copy essential files
-echo "Copying files from $SOURCE_DIR..."
-cp "$SOURCE_DIR/plusmagi-search.php" "$TEMP_DIR/$PLUGIN_SLUG/"
-cp "$SOURCE_DIR/readme.txt" "$TEMP_DIR/$PLUGIN_SLUG/"
-cp "./README.md" "$TEMP_DIR/$PLUGIN_SLUG/"
-cp "$SOURCE_DIR/LICENSE" "$TEMP_DIR/$PLUGIN_SLUG/"
-cp -r "$SOURCE_DIR/assets" "$TEMP_DIR/$PLUGIN_SLUG/"
+setup_build_dir() {
+	mkdir -p "$BUILD_DIR"
+}
 
-# Create zip in build/
-echo "Creating zip archive..."
-cd "$TEMP_DIR" || exit
-zip -r "../build/${PLUGIN_SLUG}.zip" "$PLUGIN_SLUG" -x "*.DS_Store" -x "__MACOSX"
-cd ..
+cleanup_previous_build() {
+	rm -rf "$TEMP_DIR"
+	rm -f "$ZIP_FILE"
+}
 
-# Cleanup temp folder
-rm -rf "$TEMP_DIR"
+prepare_structure() {
+	# Prepare temp directory structure
+	mkdir -p "$TEMP_DIR/$PLUGIN_SLUG"
+}
 
-echo "Build complete: $(pwd)/build/${PLUGIN_SLUG}.zip"
+copy_files() {
+	# Copy essential files
+	echo "Copying files from $SOURCE_DIR..."
+	cp "$SOURCE_DIR/plusmagi-search.php" "$TEMP_DIR/$PLUGIN_SLUG/"
+	cp "$SOURCE_DIR/readme.txt" "$TEMP_DIR/$PLUGIN_SLUG/"
+	cp "./README.md" "$TEMP_DIR/$PLUGIN_SLUG/"
+	cp "$SOURCE_DIR/LICENSE" "$TEMP_DIR/$PLUGIN_SLUG/"
+	cp -r "$SOURCE_DIR/assets" "$TEMP_DIR/$PLUGIN_SLUG/"
+}
+
+create_zip() {
+	# Create zip in build/
+	echo "Creating zip archive..."
+	cd "$TEMP_DIR" || exit
+	zip -qr "../build/${PLUGIN_SLUG}.zip" "$PLUGIN_SLUG" -x "*.DS_Store" -x "__MACOSX"
+	cd ..
+}
+
+cleanup_temp() {
+	# Cleanup temp folder
+	rm -rf "$TEMP_DIR"
+}
+
+# Run main function
+main

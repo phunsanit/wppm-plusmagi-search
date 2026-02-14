@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PlusMagi Search - Advanced WordPress Search Plugin</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+	<style>
+		/* Inline quick fixes or enhancements */
+		.glass-panel {
+			background: rgba(255, 255, 255, 0.7);
+			backdrop-filter: blur(10px);
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			border-radius: 1rem;
+			padding: 2rem;
+			margin-top: 2rem;
+		}
+	</style>
+</head>
+<body>
+
+	<header class="container">
+		<nav>
+			<div class="logo">PlusMagi Search</div>
+			<a href="https://pitt.plusmagi.com" class="btn" style="color: var(--text-color); font-weight: 500;">Developer Site</a>
+		</nav>
+	</header>
+
+	<main>
+		<!-- Hero Section -->
+		<section class="hero container">
+			<h1>Powerful Search for <br><span style="color: var(--primary-color);">Modern WordPress Sites</span></h1>
+			<p>
+				Enhance your site's search functionality with role-based access control,
+				custom field support, and a beautiful, responsive UI.
+			</p>
+
+			<div class="hero-actions">
+				<a href="#" class="btn btn-primary" onclick="alert('Plugin is currently under review on WordPress.org. Please check back later!'); return false;">Download Plugin</a>
+				<a href="#features" class="btn" style="background: rgba(99,102,241,0.1); color: var(--primary-color);">Learn More</a>
+			</div>
+
+			<!-- Visual Demo Mockup -->
+			<div class="search-demo">
+				<div class="search-input-fake" style="text-align: left; opacity: 0.7;">post: search demo...</div>
+				<div class="search-results-fake">
+					 <div class="result-item">
+						<div class="result-icon" style="background: #e2e8f0;"></div>
+						<div class="result-text" style="text-align: left;">
+							<span class="result-title">Search Demo Post</span>
+							<span class="result-meta">Published • 2 days ago</span>
+						</div>
+					 </div>
+					 <div class="result-item">
+						<div class="result-icon" style="background: #cbd5e1;"></div>
+						<div class="result-text" style="text-align: left;">
+							<span class="result-title">Advanced Features Guide</span>
+							<span class="result-meta">Draft • Private Access Only</span>
+						</div>
+					 </div>
+				</div>
+				<div style="position: absolute; top: -10px; right: -10px; background: #22c55e; color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; font-weight: bold; transform: rotate(5deg);">Live Demo View</div>
+			</div>
+		</section>
+
+		<!-- Features Section -->
+		<section id="features" class="features">
+			<div class="container">
+				<h2 class="section-title">Why PlusMagi Search?</h2>
+
+				<div class="grid">
+					<!-- Feature 1 -->
+					<div class="card">
+						<div class="card-icon">🔒</div>
+						<h3>Strict Access Control</h3>
+						<p>Public users see published content. Editors see everything. Smart filtering based on user roles and capabilities.</p>
+					</div>
+
+					<!-- Feature 2 -->
+					<div class="card">
+						<div class="card-icon">⚡</div>
+						<h3>Deep Search</h3>
+						<p>Search beyond titles. Include custom fields (meta), categories, and tags in your search results automatically.</p>
+					</div>
+
+					<!-- Feature 3 -->
+					<div class="card">
+						<div class="card-icon">🏷️</div>
+						<h3>Smart Prefixes</h3>
+						<p>Power users can use prefixes like <code>post:</code>, <code>tag:</code>, or <code>category:</code> to filter results instantly.</p>
+					</div>
+
+					<!-- Feature 4 -->
+					<div class="card">
+						<div class="card-icon">🎨</div>
+						<h3>Rich UI & Tabs</h3>
+						<p>Results are organized into tabbed categories (Posts, Tags, Categories) with thumbnail support.</p>
+					</div>
+
+					<!-- Feature 5 -->
+					<div class="card">
+						<div class="card-icon">🚀</div>
+						<h3>High Performance</h3>
+						<p>AJAX-powered and lightweight. Designed to be fast with no bloat or external dependencies.</p>
+					</div>
+
+					<!-- Feature 6 -->
+					<div class="card">
+						<div class="card-icon">🧩</div>
+						<h3>Easy Integration</h3>
+						<p>Drop the <code>[plusmagi_search]</code> shortcode anywhere or use the built-in Gutenberg Block.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Installation Section -->
+		<section class="installation container">
+			<h2 class="section-title">Get Started in Seconds</h2>
+			<div style="text-align: center; max-width: 600px; margin: 0 auto 2rem;">
+				<p>Installing PlusMagi Search is as simple as any other WordPress plugin.</p>
+			</div>
+
+			<div class="glass-panel" style="max-width: 800px; margin: 0 auto; text-align: left;">
+				<div class="step">
+					<span class="step-number">1</span>
+					<strong>Upload & Activate</strong>
+					<p style="margin-left: 2.75rem; color: var(--text-color); opacity: 0.8;">Upload the plugin folder to your <code>/wp-content/plugins/</code> directory and activate it.</p>
+				</div>
+				<div class="step">
+					<span class="step-number">2</span>
+					<strong>Add Shortcode</strong>
+					<p style="margin-left: 2.75rem; color: var(--text-color); opacity: 0.8;">Place the shortcode <code>[plusmagi_search]</code> in any page or post.</p>
+				</div>
+				 <div class="step">
+					<span class="step-number">3</span>
+					<strong>Enjoy!</strong>
+					<p style="margin-left: 2.75rem; color: var(--text-color); opacity: 0.8;">Your secure, advanced search is now live.</p>
+				</div>
+			</div>
+
+		</section>
+	</main>
+
+	<footer class="container">
+		<p>&copy; 2026 PlusMagi. All rights reserved. <br> Created by Phunsanit.</p>
+	</footer>
+
+</body>
+</html>
