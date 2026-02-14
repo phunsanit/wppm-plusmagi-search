@@ -1,0 +1,14 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.zip
+build/
+temp_build/
+node_modules/
+.idea/
+.vscode/
+
+# Ignore the build directory specifically if it exists in root or parallel
+../build/
