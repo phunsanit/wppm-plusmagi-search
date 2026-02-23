@@ -4,88 +4,110 @@ jQuery(document).ready(function ($) {
 	var timer;
 	var activeTab = 'posts'; // Default tab
 
-	// 1. Move results to body
-	if ($results.length > 0 && $results.parent().not('body').length) {
+	// 1. Move results to body so z-index / overflow:hidden in parent themes
+	//	cannot clip the dropdown.
+	if ($results.length > 0 && !$results.parent().is('body')) {
 		$('body').append($results);
 	}
 
-	// 2. Position dropdown
+	// 2. Position dropdown beneath the input.
+	//	Uses position:fixed + getBoundingClientRect() so the coordinates are
+	//	relative to the viewport and never need updating on scroll.
+	//	This avoids the Firefox "scroll-linked positioning effect" warning
+	//	caused by reading layout information inside a scroll event handler.
 	function repositionDropdown() {
 		if (!$input.is(':visible')) return;
-		var offset = $input.offset();
-		var width = $input.outerWidth();
-		var height = $input.outerHeight();
+		var rect = $input[0].getBoundingClientRect();
 
 		$results.css({
-			'top': (offset.top + height + 4) + 'px',
-			'left': offset.left + 'px',
-			'width': width + 'px',
-			'position': 'absolute',
+			'top': (rect.bottom + 4) + 'px',
+			'left': rect.left + 'px',
+			'width': rect.width + 'px',
+			'position': 'fixed',
 			'z-index': 999999
 		});
 	}
 
-	$(window).on('resize scroll', function () {
+	// Only reposition on resize (not scroll — fixed positioning handles that).
+	$(window).on('resize', function () {
 		if ($results.is(':visible')) repositionDropdown();
 	});
 
-	// 3. Render Tabs and Content
-	function renderTabs(buckets) {
-		var html = '<div class="plusmagi-search-tabs">';
-		html += '<div class="plusmagi-tab" data-tab="posts">Posts (' + buckets.posts.length + ')</div>';
-		html += '<div class="plusmagi-tab" data-tab="categories">Category (' + buckets.categories.length + ')</div>';
-		html += '<div class="plusmagi-tab" data-tab="tags">Tag (' + buckets.tags.length + ')</div>';
-		html += '</div>';
+	// 3. Build a safe anchor element for a single result item.
+	//	All dynamic content is set via .text() / .attr() to prevent XSS.
+	function buildItem(item, mode) {
+		var $li = $('<li>');
+		var $a = $('<a>').attr('href', item.link);
+		var $icon = $('<div>').addClass('plusmagi-item-icon');
 
-		html += '<div class="plusmagi-tab-content" id="tab-content-posts" style="display:none;">' + renderList(buckets.posts, 'post') + '</div>';
-		html += '<div class="plusmagi-tab-content" id="tab-content-categories" style="display:none;">' + renderList(buckets.categories, 'term') + '</div>';
-		html += '<div class="plusmagi-tab-content" id="tab-content-tags" style="display:none;">' + renderList(buckets.tags, 'term') + '</div>';
-
-		$results.html(html).show();
-
-		// Activate current tab
-		switchTab(activeTab);
-	}
-
-	function renderList(items, mode) {
-		if (items.length === 0) return '<div class="no-results">No results found.</div>';
-
-		var ul = '<ul>';
-		$.each(items, function (i, item) {
-			var statusLabel = '';
+		if (item.thumbnail) {
+			$('<img>')
+				.addClass('plusmagi-item-thumb')
+				.attr('src', item.thumbnail)
+				.attr('alt', '')
+				.appendTo($icon);
+		} else {
 			var iconClass = 'dashicons-admin-post';
-
 			if (mode === 'term') {
 				iconClass = (item.original_type === 'category') ? 'dashicons-category' : 'dashicons-tag';
-				// For terms we might not need status label unless we want to show 'Category' text
-			} else {
-				if (item.status !== 'publish') {
-					statusLabel = ' <span class="plusmagi-search-status-pill">' + item.status + '</span>';
-				}
-				if (item.original_type === 'page') iconClass = 'dashicons-admin-page';
+			} else if (item.original_type === 'page') {
+				iconClass = 'dashicons-admin-page';
 			}
+			$('<span>')
+				.addClass('dashicons ' + iconClass)
+				.css({ 'font-size': '20px', 'width': '20px', 'height': '20px', 'line-height': '20px' })
+				.appendTo($icon);
+		}
 
-			var icon = '';
-			if (item.thumbnail) {
-				icon = '<img src="' + item.thumbnail + '" class="plusmagi-item-thumb" alt="" />';
-			} else {
-				icon = '<span class="dashicons ' + iconClass + '" style="font-size: 20px; width: 20px; height: 20px; line-height: 20px;"></span>';
-			}
+		var $details = $('<div>').addClass('plusmagi-item-details');
+		var $title = $('<span>').addClass('plusmagi-item-title').text(item.title);
 
-			ul += '<li>';
-			ul += '<a href="' + item.link + '">';
-			ul += '<div class="plusmagi-item-icon">' + icon + '</div>';
-			ul += '<div class="plusmagi-item-details">';
-			ul += '<span class="plusmagi-item-title">' + item.title + statusLabel + '</span>';
-			if (mode === 'post') {
-				ul += '<span class="plusmagi-item-info">' + item.date + '</span>';
-			}
-			ul += '</div>';
-			ul += '</a>';
-			ul += '</li>';
+		// Append status pill for non-published posts (text only, no raw HTML)
+		if (mode !== 'term' && item.status && item.status !== 'publish') {
+			$('<span>').addClass('plusmagi-search-status-pill').text(item.status).appendTo($title);
+		}
+
+		$details.append($title);
+
+		if (mode === 'post') {
+			$('<span>').addClass('plusmagi-item-info').text(item.date).appendTo($details);
+		}
+
+		$a.append($icon).append($details);
+		$li.append($a);
+		return $li;
+	}
+
+	// 4. Render a list of items into a <ul>
+	function renderList(items, mode) {
+		if (items.length === 0) {
+			return $('<div>').addClass('no-results').text('No results found.');
+		}
+		var $ul = $('<ul>');
+		$.each(items, function (i, item) {
+			$ul.append(buildItem(item, mode));
 		});
-		ul += '</ul>';
-		return ul;
+		return $ul;
+	}
+
+	// 5. Render the full tab UI and inject it into the results container
+	function renderTabs(buckets) {
+		$results.empty();
+
+		// Tab headers
+		var $tabs = $('<div>').addClass('plusmagi-search-tabs');
+		$('<div>').addClass('plusmagi-tab').attr('data-tab', 'posts').text('Posts (' + buckets.posts.length + ')').appendTo($tabs);
+		$('<div>').addClass('plusmagi-tab').attr('data-tab', 'categories').text('Category (' + buckets.categories.length + ')').appendTo($tabs);
+		$('<div>').addClass('plusmagi-tab').attr('data-tab', 'tags').text('Tag (' + buckets.tags.length + ')').appendTo($tabs);
+
+		// Tab panels
+		var $panelPosts = $('<div>').addClass('plusmagi-tab-content').attr('id', 'tab-content-posts').hide().append(renderList(buckets.posts, 'post'));
+		var $panelCats = $('<div>').addClass('plusmagi-tab-content').attr('id', 'tab-content-categories').hide().append(renderList(buckets.categories, 'term'));
+		var $panelTags = $('<div>').addClass('plusmagi-tab-content').attr('id', 'tab-content-tags').hide().append(renderList(buckets.tags, 'term'));
+
+		$results.append($tabs).append($panelPosts).append($panelCats).append($panelTags).show();
+
+		switchTab(activeTab);
 	}
 
 	function switchTab(tabName) {
@@ -98,20 +120,20 @@ jQuery(document).ready(function ($) {
 		repositionDropdown();
 	}
 
-	// Event Delegation for Tabs
+	// 6. Event delegation for tab clicks
 	$results.on('mousedown', '.plusmagi-tab', function (e) {
-		e.preventDefault(); // Prevent input blur
-		var tab = $(this).data('tab');
-		switchTab(tab);
+		e.preventDefault(); // Prevent input blur before the click registers
+		switchTab($(this).data('tab'));
 	});
 
 	$input.on('focus', function () {
-		if ($(this).val().length >= 2 && $results.text().trim() !== '') {
+		if ($(this).val().length >= 2 && $results.children().length > 0) {
 			$results.show();
 			repositionDropdown();
 		}
 	});
 
+	// 7. Main search handler
 	$input.on('input', function () {
 		var term = $(this).val();
 		clearTimeout(timer);
@@ -147,16 +169,21 @@ jQuery(document).ready(function ($) {
 					renderTabs(buckets);
 				},
 				error: function () {
-					$results.html('<div class="error">Error retrieving results.</div>').show();
+					$results.empty()
+						.append($('<div>').addClass('error').text('Error retrieving results.'))
+						.show();
 					repositionDropdown();
 				}
 			});
 		}, 300);
 	});
 
+	// 8. Close dropdown when clicking outside the widget
 	$(document).on('click', function (e) {
-		if (!$(e.target).closest('#plusmagi-search-input').length &&
-			!$(e.target).closest('#plusmagi-search-results').length) {
+		if (
+			!$(e.target).closest('#plusmagi-search-input').length &&
+			!$(e.target).closest('#plusmagi-search-results').length
+		) {
 			$results.hide();
 		}
 	});

@@ -25,6 +25,15 @@ class PlusMagi_Search
 
 	private static $instance = null;
 
+	/**
+	 * Holds the current REST search term while custom-field filters are active.
+	 * Null when filters are not registered, which prevents them from firing
+	 * on unrelated WP_Query calls elsewhere on the page.
+	 *
+	 * @var string|null
+	 */
+	private $search_term = null;
+
 	public static function get_instance()
 	{
 		if (self::$instance === null) {
@@ -50,12 +59,12 @@ class PlusMagi_Search
 			'plusmagi-block-js',
 			PLUSMAGI_SEARCH_URL . 'assets/js/block.js',
 			['wp-blocks', 'wp-element'],
-			'1.0.0',
+			PLUSMAGI_SEARCH_VERSION,
 			true
 		);
 
 		register_block_type('plusmagi/search', [
-			'editor_script' => 'plusmagi-block-js',
+			'editor_script'   => 'plusmagi-block-js',
 			'render_callback' => [$this, 'render_shortcode']
 		]);
 	}
@@ -77,17 +86,16 @@ class PlusMagi_Search
 	{
 		?>
 		<div class="wrap">
-			<h1>PlusMagi Search</h1>
-			<p>Thank you for using PlusMagi Search! This plugin provides a frontend search experience similar to the WordPress
-				admin search, with role-based access control.</p>
+			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+			<p><?php esc_html_e('Thank you for using PlusMagi Search! This plugin provides a frontend search experience similar to the WordPress admin search, with role-based access control.', 'plusmagi-search'); ?></p>
 
 			<div class="card">
-				<h2>About the Developer</h2>
+				<h2><?php esc_html_e('About the Developer', 'plusmagi-search'); ?></h2>
 				<p>
-					For support, updates, and more information, please visit our website:
+					<?php esc_html_e('For support, updates, and more information, please visit our website:', 'plusmagi-search'); ?>
 					<br>
-					<a href="https://wp-search.plusmagi.com" target="_blank" style="font-size: 1.2em; text-decoration: none;">
-						<strong>Visit wp-search.plusmagi.com &rarr;</strong>
+					<a href="https://wp-search.plusmagi.com" target="_blank" rel="noopener noreferrer">
+						<strong><?php esc_html_e('Visit wp-search.plusmagi.com →', 'plusmagi-search'); ?></strong>
 					</a>
 				</p>
 			</div>
@@ -95,14 +103,35 @@ class PlusMagi_Search
 		<?php
 	}
 
+	/**
+	 * Enqueue frontend scripts and styles on all public pages.
+	 *
+	 * The search widget can be placed in sidebars, widget areas, or theme
+	 * templates where $post->post_content is never involved, so checking
+	 * has_shortcode() / has_block() is not a reliable gate. Loading two
+	 * small files on every frontend page is the correct approach for any
+	 * plugin whose output location cannot be predicted at enqueue time.
+	 */
 	public function enqueue_scripts()
 	{
-		wp_enqueue_script('plusmagi-search-js', PLUSMAGI_SEARCH_URL . 'assets/js/search.js', ['jquery'], '1.0.0', true);
-		wp_enqueue_style('plusmagi-search-css', PLUSMAGI_SEARCH_URL . 'assets/css/search.css', ['dashicons'], '1.0.0');
+		wp_enqueue_script(
+			'plusmagi-search-js',
+			PLUSMAGI_SEARCH_URL . 'assets/js/search.js',
+			['jquery'],
+			PLUSMAGI_SEARCH_VERSION,
+			true
+		);
+
+		wp_enqueue_style(
+			'plusmagi-search-css',
+			PLUSMAGI_SEARCH_URL . 'assets/css/search.css',
+			['dashicons'],
+			PLUSMAGI_SEARCH_VERSION
+		);
 
 		wp_localize_script('plusmagi-search-js', 'plusMagiSearch', [
-			'root' => esc_url_raw(rest_url()),
-			'nonce' => wp_create_nonce('wp_rest')
+			'root'  => esc_url_raw(rest_url()),
+			'nonce' => wp_create_nonce('wp_rest'),
 		]);
 	}
 
@@ -111,7 +140,7 @@ class PlusMagi_Search
 		ob_start();
 		?>
 		<div id="plusmagi-search-wrapper">
-			<input type="text" id="plusmagi-search-input" placeholder="Search..." autocomplete="off">
+			<input type="text" id="plusmagi-search-input" placeholder="<?php esc_attr_e('Search...', 'plusmagi-search'); ?>" autocomplete="off">
 			<div id="plusmagi-search-results"></div>
 		</div>
 		<?php
@@ -121,9 +150,30 @@ class PlusMagi_Search
 	public function register_rest_routes()
 	{
 		register_rest_route('plusmagi-search/v1', '/search', [
-			'methods' => 'GET',
+			'methods'  => 'GET',
 			'callback' => [$this, 'handle_search'],
-			'permission_callback' => '__return_true', // Validation happens inside to allow public access logic
+			/**
+			 * This is an intentionally public search endpoint, equivalent to
+			 * WordPress core's own search. Unauthenticated requests receive only
+			 * published content. Role-based access control (exposing drafts /
+			 * private posts to editors and authors) is enforced inside
+			 * handle_search() via is_user_logged_in() and current_user_can(),
+			 * which is the correct pattern for endpoints that serve different
+			 * data depending on the caller's authentication state.
+			 *
+			 * @see https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/#permissions-callback
+			 */
+			'permission_callback' => '__return_true',
+			'args'	 => [
+				'term' => [
+					'required'		  => true,
+					'type'			  => 'string',
+					'sanitize_callback' => 'sanitize_text_field',
+					'validate_callback' => function ($value) {
+						return is_string($value) && strlen(trim($value)) >= 2;
+					},
+				],
+			],
 		]);
 	}
 
@@ -135,7 +185,7 @@ class PlusMagi_Search
 			return rest_ensure_response([]);
 		}
 
-		$results = [];
+		$results	 = [];
 		$search_mode = 'all'; // Default: search everything
 		$search_term = $raw_term;
 
@@ -168,22 +218,22 @@ class PlusMagi_Search
 
 			if (!empty($taxonomies)) {
 				$terms = get_terms([
-					'taxonomy' => $taxonomies,
-					'search' => $search_term,
+					'taxonomy'   => $taxonomies,
+					'search'	 => $search_term,
 					'hide_empty' => false,
-					'number' => 10
+					'number'	 => 10,
 				]);
 
 				if (!empty($terms) && !is_wp_error($terms)) {
 					foreach ($terms as $term) {
 						$results[] = [
-							'id' => $term->term_id,
-							'title' => $term->name,
-							'link' => get_term_link($term),
-							'status' => ucfirst($term->taxonomy === 'post_tag' ? 'Tag' : 'Category'),
-							'type' => 'term',
+							'id'			=> $term->term_id,
+							'title'		 => $term->name,
+							'link'		  => get_term_link($term),
+							'status'		=> ucfirst($term->taxonomy === 'post_tag' ? 'Tag' : 'Category'),
+							'type'		  => 'term',
 							'original_type' => $term->taxonomy,
-							'date' => ''
+							'date'		  => '',
 						];
 					}
 				}
@@ -193,32 +243,39 @@ class PlusMagi_Search
 		// 2. Search Posts
 		if ($search_mode === 'all' || $search_mode === 'post') {
 			$args = [
-				'post_type' => ['post', 'page'],
+				'post_type'	  => ['post', 'page'],
 				'posts_per_page' => 20,
-				's' => $search_term,
-				'post_status' => 'publish',
+				's'			  => $search_term,
+				'post_status'	=> 'publish',
 			];
 
 			// Advanced Access Control Logic
 			if (is_user_logged_in()) {
-				$current_user_id = get_current_user_id();
-
 				if (current_user_can('edit_others_posts')) {
+					// Editors / Admins: see all statuses.
 					$args['post_status'] = ['publish', 'draft', 'pending', 'private', 'future'];
 				} elseif (current_user_can('edit_posts')) {
+					// Authors: see published content + their own non-published posts.
 					$args['post_status'] = ['publish', 'draft', 'pending', 'private'];
 					add_filter('posts_where', [$this, 'filter_author_posts_where'], 10, 2);
 				}
 			}
 
-			// Enable Custom Fields Search join/where
+			// Enable Custom Fields Search join/where.
+			// $this->search_term acts as the gate: the filter callbacks skip
+			// themselves when it is null, ensuring they never affect unrelated
+			// WP_Query calls elsewhere on the page.
+			// NOTE: is_search() returns false inside a REST request, so we
+			// cannot use it here as a guard.
+			$this->search_term = $search_term;
 			add_filter('posts_join', [$this, 'search_join_custom_fields']);
 			add_filter('posts_where', [$this, 'search_where_custom_fields']);
 			add_filter('posts_distinct', [$this, 'search_distinct']);
 
 			$query = new WP_Query($args);
 
-			// Cleanup filters
+			// Cleanup filters immediately after the query.
+			$this->search_term = null;
 			remove_filter('posts_join', [$this, 'search_join_custom_fields']);
 			remove_filter('posts_where', [$this, 'search_where_custom_fields']);
 			remove_filter('posts_distinct', [$this, 'search_distinct']);
@@ -230,25 +287,31 @@ class PlusMagi_Search
 			if ($query->have_posts()) {
 				while ($query->have_posts()) {
 					$query->the_post();
-					$post_id = get_the_ID();
+					$post_id	 = get_the_ID();
+					$post_status = get_post_status();
 
-					if (get_post_status() !== 'publish' && get_the_author_meta('ID') !== get_current_user_id() && !current_user_can('edit_others_posts')) {
+					// Secondary guard: never leak non-published posts to users who
+					// are not the author or an editor.
+					if (
+						$post_status !== 'publish' &&
+						(int) get_post_field('post_author', $post_id) !== get_current_user_id() &&
+						!current_user_can('edit_others_posts')
+					) {
 						continue;
 					}
 
-					$post_type_label = get_post_type_object(get_post_type())->labels->singular_name;
 					$thumb_url = get_the_post_thumbnail_url($post_id, 'thumbnail');
 
 					$results[] = [
-						'id' => $post_id,
-						'title' => get_the_title(),
-						'link' => get_permalink(),
-						'status' => get_post_status(),
-						'type' => 'post',
-						'original_type' => get_post_type(),
-						'post_type_label' => $post_type_label,
-						'date' => get_the_date(),
-						'thumbnail' => $thumb_url ? $thumb_url : null
+						'id'			 => $post_id,
+						'title'		  => get_the_title(),
+						'link'		   => get_permalink(),
+						'status'		 => $post_status,
+						'type'		   => 'post',
+						'original_type'  => get_post_type(),
+						'post_type_label' => get_post_type_object(get_post_type())->labels->singular_name,
+						'date'		   => get_the_date(),
+						'thumbnail'	  => $thumb_url ? $thumb_url : null,
 					];
 				}
 				wp_reset_postdata();
@@ -261,7 +324,10 @@ class PlusMagi_Search
 	public function search_join_custom_fields($join)
 	{
 		global $wpdb;
-		if (is_search()) { // Only apply if standard WP_Query 's' is present, effectively
+		// $this->search_term is only non-null while our REST query is running.
+		// is_search() returns false inside a REST request, so we use this
+		// property as the guard instead.
+		if (!empty($this->search_term)) {
 			$join .= " LEFT JOIN {$wpdb->postmeta} ON ({$wpdb->posts}.ID = {$wpdb->postmeta}.post_id) ";
 		}
 		return $join;
@@ -270,40 +336,38 @@ class PlusMagi_Search
 	public function search_where_custom_fields($where)
 	{
 		global $wpdb;
-		if (is_search()) {
-			// We want to extend the search to include meta_value
-			// The standard search generates: AND (((post_title LIKE...) OR (post_excerpt LIKE...) OR (post_content LIKE...)))
-			// We want to add OR (meta_value LIKE...)
+		// $this->search_term is set by handle_search() before filters are added
+		// and cleared immediately after the query runs. We use it here instead of
+		// get_query_var('s') because query vars are not populated in REST context.
+		if (!empty($this->search_term)) {
+			// Extend WP_Query's standard search clause to also match post meta.
+			// Standard clause: AND (((post_title LIKE '%x%') OR (post_excerpt LIKE '%x%') OR (post_content LIKE '%x%')))
+			// We append an OR branch for meta_value before the trailing parentheses.
+			$like	 = '%' . $wpdb->esc_like($this->search_term) . '%';
+			$meta_sql = $wpdb->prepare(" OR ({$wpdb->postmeta}.meta_value LIKE %s) ", $like);
 
-			// Simplest way is a replace, assuming standard structure.
-			// CAUTION: This looks for the closing parenthesis of the main search group.
-
-			// A safer, more robust regex approach:
-			$search_term = get_query_var('s');
-			if (!empty($search_term)) {
-				$like = '%' . $wpdb->esc_like($search_term) . '%';
-				$meta_sql = $wpdb->prepare(" OR ({$wpdb->postmeta}.meta_value LIKE %s) ", $like);
-
-				// Inject before the last closing parenthesis of the search clause
-				// This is a bit hacky but common for "searching everything" without a dedicated engine like Relevanssi.
-				// We'll replace the last "))" with ") $meta_sql )"
-				$where = preg_replace('/\)\)\s*$/', ") $meta_sql )", $where);
-			}
+			$where = preg_replace('/\)\)\s*$/', ") $meta_sql )", $where);
 		}
 		return $where;
 	}
 
 	public function search_distinct($distinct)
 	{
-		return "DISTINCT";
+		// Only applies while $this->search_term is set (guarded by the caller).
+		return 'DISTINCT';
 	}
 
 	public function filter_author_posts_where($where, $query)
 	{
 		global $wpdb;
-		$current_user_id = get_current_user_id();
+		$current_user_id = (int) get_current_user_id();
 
-		$where .= " AND ( {$wpdb->posts}.post_status = 'publish' OR {$wpdb->posts}.post_author = {$current_user_id} ) ";
+		// Use $wpdb->prepare() so the user ID is safely interpolated even
+		// though it is already cast to int above.
+		$where .= $wpdb->prepare(
+			" AND ( {$wpdb->posts}.post_status = 'publish' OR {$wpdb->posts}.post_author = %d ) ",
+			$current_user_id
+		);
 
 		return $where;
 	}

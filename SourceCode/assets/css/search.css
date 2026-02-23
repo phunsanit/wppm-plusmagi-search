@@ -27,10 +27,6 @@
 /* Results Dropdown */
 #plusmagi-search-results {
 	display: none;
-	position: absolute;
-	top: 100%;
-	left: 0;
-	right: 0;
 	margin-top: 4px;
 
 	/* Try to use theme's background color variable, fallback to white */
