@@ -94,6 +94,16 @@ Use the shortcode anywhere on your site:
 [plusmagi_search]
 ```
 
+## Security & User Roles
+
+**Is the search appropriate for User Roles?**
+
+Yes, it is appropriate and secure. Logic has been implemented to strictly check user capabilities in `plusmagi-search.php` (function `handle_search`) as follows:
+
+- **Guest**: Can only search for posts with **Publish** status.
+- **Author**: Can search for their own posts that are **Draft**, **Pending**, or **Private** (using the `filter_author_posts_where` filter to restrict results to their own posts).
+- **Editor / Admin**: Can search for posts of **all statuses**, whether Publish, Draft, Private, Pending, or Future, from any user.
+
 ## Contributing
 
 1. Fork the repository.
