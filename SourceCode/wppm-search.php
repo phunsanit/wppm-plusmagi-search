@@ -1,26 +1,26 @@
 <?php
 /**
  * Plugin Name: PlusMagi Search
- * Plugin URI:  https://wp-search.plusmagi.com
+ * Plugin URI:  https://plusmagi.com/wppm-search
  * Description: A frontend search plugin that mimics the WordPress admin search functionality, with role-based access control.
  * Version:	 1.0.0
- * Author:	  Phunsanit
+ * Author:	 Pitt Phunsanit <phunsanit@gmail.com>, <phunsanit@plusmagi.com>
  * Author URI:  https://pitt.plusmagi.com
  * License:	 MIT
  * License URI: https://opensource.org/licenses/MIT
- * Text Domain: plusmagi-search
+ * Text Domain: wppm-search
  */
 
 if (!defined('ABSPATH')) {
 	exit;
 }
 
-define('PLUSMAGI_SEARCH_VERSION', '1.0.0');
-define('PLUSMAGI_SEARCH_FILE', __FILE__);
-define('PLUSMAGI_SEARCH_URL', plugin_dir_url(__FILE__));
-define('PLUSMAGI_SEARCH_PATH', plugin_dir_path(__FILE__));
+define('WPPM_SEARCH_VERSION', '1.0.0');
+define('WPPM_SEARCH_FILE', __FILE__);
+define('WPPM_SEARCH_URL', plugin_dir_url(__FILE__));
+define('WPPM_SEARCH_PATH', plugin_dir_path(__FILE__));
 
-class PlusMagi_Search
+class WPPM_Search
 {
 
 	private static $instance = null;
@@ -45,7 +45,7 @@ class PlusMagi_Search
 	public function __construct()
 	{
 		add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
-		add_shortcode('plusmagi_search', [$this, 'render_shortcode']);
+		add_shortcode('wppm-search', [$this, 'render_shortcode']);
 		add_action('rest_api_init', [$this, 'register_rest_routes']);
 		add_action('init', [$this, 'register_blocks']);
 
@@ -56,15 +56,15 @@ class PlusMagi_Search
 	public function register_blocks()
 	{
 		wp_register_script(
-			'plusmagi-block-js',
-			PLUSMAGI_SEARCH_URL . 'assets/js/block.js',
+			'wppm-search-block-js',
+			WPPM_SEARCH_URL . 'assets/js/block.js',
 			['wp-blocks', 'wp-element'],
-			PLUSMAGI_SEARCH_VERSION,
+			WPPM_SEARCH_VERSION,
 			true
 		);
 
-		register_block_type('plusmagi/search', [
-			'editor_script'   => 'plusmagi-block-js',
+		register_block_type('wppm-search/search', [
+			'editor_script'   => 'wppm-search-block-js',
 			'render_callback' => [$this, 'render_shortcode']
 		]);
 	}
@@ -75,7 +75,7 @@ class PlusMagi_Search
 			'PlusMagi Search',
 			'PlusMagi Search',
 			'manage_options',
-			'plusmagi-search',
+			'wppm-search',
 			[$this, 'render_admin_page'],
 			'dashicons-search',
 			100
@@ -87,15 +87,15 @@ class PlusMagi_Search
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-			<p><?php esc_html_e('Thank you for using PlusMagi Search! This plugin provides a frontend search experience similar to the WordPress admin search, with role-based access control.', 'plusmagi-search'); ?></p>
+			<p><?php esc_html_e('Thank you for using PlusMagi Search! This plugin provides a frontend search experience similar to the WordPress admin search, with role-based access control.', 'wppm-search'); ?></p>
 
 			<div class="card">
-				<h2><?php esc_html_e('About the Developer', 'plusmagi-search'); ?></h2>
+				<h2><?php esc_html_e('About the Developer', 'wppm-search'); ?></h2>
 				<p>
-					<?php esc_html_e('For support, updates, and more information, please visit our website:', 'plusmagi-search'); ?>
+					<?php esc_html_e('For support, updates, and more information, please visit our website:', 'wppm-search'); ?>
 					<br>
-					<a href="https://wp-search.plusmagi.com" target="_blank" rel="noopener noreferrer">
-						<strong><?php esc_html_e('Visit wp-search.plusmagi.com →', 'plusmagi-search'); ?></strong>
+					<a href="https://plusmagi.com/wppm-search" target="_blank" rel="noopener noreferrer">
+						<strong><?php esc_html_e('Visit plusmagi.com →', 'wppm-search'); ?></strong>
 					</a>
 				</p>
 			</div>
@@ -115,21 +115,21 @@ class PlusMagi_Search
 	public function enqueue_scripts()
 	{
 		wp_enqueue_script(
-			'plusmagi-search-js',
-			PLUSMAGI_SEARCH_URL . 'assets/js/search.js',
+			'wppm-search-js',
+			WPPM_SEARCH_URL . 'assets/js/search.js',
 			['jquery'],
-			PLUSMAGI_SEARCH_VERSION,
+			WPPM_SEARCH_VERSION,
 			true
 		);
 
 		wp_enqueue_style(
-			'plusmagi-search-css',
-			PLUSMAGI_SEARCH_URL . 'assets/css/search.css',
+			'wppm-search-css',
+			WPPM_SEARCH_URL . 'assets/css/search.css',
 			['dashicons'],
-			PLUSMAGI_SEARCH_VERSION
+			WPPM_SEARCH_VERSION
 		);
 
-		wp_localize_script('plusmagi-search-js', 'plusMagiSearch', [
+		wp_localize_script('wppm-search-js', 'wppmSearch', [
 			'root'  => esc_url_raw(rest_url()),
 			'nonce' => wp_create_nonce('wp_rest'),
 		]);
@@ -139,9 +139,9 @@ class PlusMagi_Search
 	{
 		ob_start();
 		?>
-		<div id="plusmagi-search-wrapper">
-			<input type="text" id="plusmagi-search-input" placeholder="<?php esc_attr_e('Search...', 'plusmagi-search'); ?>" autocomplete="off">
-			<div id="plusmagi-search-results"></div>
+		<div id="wppm-search-wrapper">
+			<input type="text" id="wppm-search-input" placeholder="<?php esc_attr_e('Search...', 'wppm-search'); ?>" autocomplete="off">
+			<div id="wppm-search-results"></div>
 		</div>
 		<?php
 		return ob_get_clean();
@@ -149,7 +149,7 @@ class PlusMagi_Search
 
 	public function register_rest_routes()
 	{
-		register_rest_route('plusmagi-search/v1', '/search', [
+		register_rest_route('wppm-search/v1', '/search', [
 			'methods'  => 'GET',
 			'callback' => [$this, 'handle_search'],
 			/**
@@ -373,4 +373,4 @@ class PlusMagi_Search
 	}
 }
 
-new PlusMagi_Search();
+new WPPM_Search();

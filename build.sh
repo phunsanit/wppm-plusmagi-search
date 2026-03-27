@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration
-PLUGIN_SLUG="plusmagi-search"
+PLUGIN_SLUG="wppm-search"
 SOURCE_DIR="./SourceCode"
 BUILD_DIR="./build"
 ZIP_FILE="${BUILD_DIR}/${PLUGIN_SLUG}.zip"
@@ -40,7 +40,7 @@ prepare_structure() {
 copy_files() {
 	# Copy essential files
 	echo "Copying files from $SOURCE_DIR..."
-	cp "$SOURCE_DIR/plusmagi-search.php" "$TEMP_DIR/$PLUGIN_SLUG/"
+	cp "$SOURCE_DIR/wppm-search.php" "$TEMP_DIR/$PLUGIN_SLUG/"
 	cp "$SOURCE_DIR/readme.txt" "$TEMP_DIR/$PLUGIN_SLUG/"
 	cp "./README.md" "$TEMP_DIR/$PLUGIN_SLUG/"
 	cp "$SOURCE_DIR/LICENSE" "$TEMP_DIR/$PLUGIN_SLUG/"

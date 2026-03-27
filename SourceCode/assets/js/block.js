@@ -2,16 +2,16 @@
 	var el = element.createElement;
 	var registerBlockType = blocks.registerBlockType;
 
-	registerBlockType('plusmagi/search', {
+	registerBlockType('wppm-search/search', {
 		title: 'PlusMagi Search',
 		icon: 'search',
 		category: 'widgets',
 		description: 'A dedicated search box with role-based access control.',
-		keywords: ['search', 'plusmagi', 'find'],
+		keywords: ['search', 'find', 'wppm-search'],
 		example: {},
 		edit: function () {
-			return el('div', { className: 'plusmagi-search-editor-wrapper' },
-				el('div', { style: { padding: '15px', border: '1px solid #ccc', background: '#f9f9f9' } },
+			return el('div', { className: 'wppm-search-editor-wrapper' },
+				el('div', { style: { padding: '15px', border: '1px solid #ccc', background: '#f9f9f9', pointerEvents: 'none' } },
 					el('strong', {}, 'PlusMagi Search'),
 					el('input', {
 						type: 'text',

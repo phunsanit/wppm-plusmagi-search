@@ -24,7 +24,7 @@ A WordPress plugin that enables detailed and powerful search capabilities for yo
 ## Installation
 
 1. Download the latest release from the `build/` directory or build it yourself.
-2. Upload `plusmagi-search.zip` to your WordPress plugins page.
+2. Upload `wppm-search.zip` to your WordPress plugins page.
 3. Activate the plugin.
 
 ## Build Instructions
@@ -35,7 +35,7 @@ To build the plugin zip file:
 ./build.sh
 ```
 
-The output file will be located at `build/plusmagi-search.zip`.
+The output file will be located at `build/wppm-search.zip`.
 
 ## Testing
 
@@ -79,7 +79,7 @@ npm run test:ui
 
 | Area | What is tested |
 |------|---------------|
-| Widget | Input visible, scripts enqueued, `plusMagiSearch` object defined |
+| Widget | Input visible, scripts enqueued, `wppmSearch` object defined |
 | Debounce | No API request for queries shorter than 2 characters |
 | Search | Dropdown appears, tabs render, tab switching, click-outside closes |
 | Prefixes | `post:`, `tag:`, `category:` all trigger correct REST requests |
@@ -91,14 +91,14 @@ npm run test:ui
 Use the shortcode anywhere on your site:
 
 ```
-[plusmagi_search]
+[wppm-search]
 ```
 
 ## Security & User Roles
 
 **Is the search appropriate for User Roles?**
 
-Yes, it is appropriate and secure. Logic has been implemented to strictly check user capabilities in `plusmagi-search.php` (function `handle_search`) as follows:
+Yes, it is appropriate and secure. Logic has been implemented to strictly check user capabilities in `wppm-search.php` (function `handle_search`) as follows:
 
 - **Guest**: Can only search for posts with **Publish** status.
 - **Author**: Can search for their own posts that are **Draft**, **Pending**, or **Private** (using the `filter_author_posts_where` filter to restrict results to their own posts).

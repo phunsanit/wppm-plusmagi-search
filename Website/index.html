@@ -191,7 +191,7 @@
 						<h3>Easy Integration</h3>
 						<p>Multiple ways to embed the search widget:</p>
 						<ul>
-							<li>Shortcode: <code>[plusmagi_search]</code> anywhere.</li>
+							<li>Shortcode: <code>[wppm-search]</code> anywhere.</li>
 							<li>Gutenberg Block — native editor support.</li>
 							<li>Full WP REST API endpoint for headless use.</li>
 						</ul>
@@ -325,7 +325,7 @@
 									<strong>Activate Plugin</strong>.</p>
 								<div class="code-snippet" id="snippet-upload">
 									<span class="snippet-label">WordPress admin path</span>
-									<code>/wp-content/plugins/plusmagi-search/</code>
+									<code>/wp-content/plugins/wp-search/</code>
 								</div>
 							</div>
 						</div>
@@ -338,9 +338,9 @@
 									automatically.</p>
 								<div class="code-snippet" id="snippet-shortcode">
 									<span class="snippet-label">Shortcode</span>
-									<code>[plusmagi_search]</code>
+									<code>[wppm-search]</code>
 									<button class="copy-btn" id="copy-shortcode"
-										onclick="copyText('[plusmagi_search]', this)"
+										onclick="copyText('[wppm-search]', this)"
 										aria-label="Copy shortcode">Copy</button>
 								</div>
 							</div>
@@ -354,9 +354,9 @@
 									page — no shortcode needed.</p>
 								<div class="code-snippet" id="snippet-api">
 									<span class="snippet-label">REST API endpoint</span>
-									<code>/wp-json/plusmagi-search/v1/search?term=hello</code>
+									<code>/wp-json/wp-search/v1/search?term=hello</code>
 									<button class="copy-btn" id="copy-api"
-										onclick="copyText('/wp-json/plusmagi-search/v1/search?term=hello', this)"
+										onclick="copyText('/wp-json/wp-search/v1/search?term=hello', this)"
 										aria-label="Copy API endpoint">Copy</button>
 								</div>
 							</div>
@@ -449,7 +449,7 @@
 						<div class="faq-answer" id="faq-answer-1" role="region">
 							<p>Yes. The results are styled via CSS which you can override in your theme's
 								<code>style.css</code> or any custom CSS plugin. The plugin uses the selector
-								<code>#plusmagi-search-wrapper</code> as the root, so overrides are scoped and clean.
+								<code>#wp-search-wrapper</code> as the root, so overrides are scoped and clean.
 							</p>
 						</div>
 					</div>
@@ -499,7 +499,7 @@
 						</button>
 						<div class="faq-answer" id="faq-answer-5" role="region">
 							<p>Yes. The plugin exposes a public REST endpoint at
-								<code>/wp-json/plusmagi-search/v1/search?term=your+query</code> that any client can
+								<code>/wp-json/wp-search/v1/search?term=your+query</code> that any client can
 								consume. Authentication via the WP REST nonce is supported for role-aware results in
 								headless setups.</p>
 						</div>
@@ -533,7 +533,7 @@
 								<li>Tabbed results UI (Posts, Categories, Tags).</li>
 								<li>Featured image thumbnails in results.</li>
 								<li>Gutenberg block registration.</li>
-								<li>WP REST API endpoint: <code>/plusmagi-search/v1/search</code>.</li>
+								<li>WP REST API endpoint: <code>/wp-search/v1/search</code>.</li>
 								<li>Zero external runtime dependencies.</li>
 							</ul>
 						</div>

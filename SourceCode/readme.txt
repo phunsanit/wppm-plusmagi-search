@@ -2,11 +2,12 @@
 Contributors: phunsanit
 Tags: search, frontend, admin-search, post-search, role-based
 Requires at least: 5.8
-Tested up to: 6.9
+Tested up to: 6.5
 Requires PHP: 7.2
 Stable tag: 1.0.0
 License: MIT
 License URI: https://opensource.org/licenses/MIT
+Text Domain: wppm-search
 
 A WordPress plugin that enables detailed and powerful search capabilities for your site.
 
@@ -32,15 +33,15 @@ PlusMagi Search is a powerful plugin that enhances your site's search functional
 	*   **Thumbnails**: Shows featured images if available.
 	*   **Theme Integration**: Inherits site colors automatically.
 *   **High Performance**: AJAX-powered, lightweight, no bloat.
-*   **Developer Friendly**: Simple shortcode `[plusmagi_search]` and Block support.
+*   **Developer Friendly**: Simple shortcode `[wppm-search]` and Block support.
 
 For more information, visit [https://pitt.plusmagi.com](https://pitt.plusmagi.com).
 
 == Installation ==
 
-1.  Upload the `plusmagi-search` directory to the `/wp-content/plugins/` directory.
+1.  Upload the `wppm-search` directory to the `/wp-content/plugins/` directory.
 2.  Activate the plugin through the 'Plugins' menu in WordPress.
-3.  Place `[plusmagi_search]` in your page or post content.
+3.  Place `[wppm-search]` in your page or post content.
 
 == Frequently Asked Questions ==
 

@@ -1,6 +1,6 @@
 jQuery(document).ready(function ($) {
-	var $input = $('#plusmagi-search-input');
-	var $results = $('#plusmagi-search-results');
+	var $input = $('#wppm-search-input');
+	var $results = $('#wppm-search-results');
 	var timer;
 	var activeTab = 'posts'; // Default tab
 
@@ -38,11 +38,11 @@ jQuery(document).ready(function ($) {
 	function buildItem(item, mode) {
 		var $li = $('<li>');
 		var $a = $('<a>').attr('href', item.link);
-		var $icon = $('<div>').addClass('plusmagi-item-icon');
+		var $icon = $('<div>').addClass('wppm-item-icon');
 
 		if (item.thumbnail) {
 			$('<img>')
-				.addClass('plusmagi-item-thumb')
+				.addClass('wppm-item-thumb')
 				.attr('src', item.thumbnail)
 				.attr('alt', '')
 				.appendTo($icon);
@@ -59,18 +59,18 @@ jQuery(document).ready(function ($) {
 				.appendTo($icon);
 		}
 
-		var $details = $('<div>').addClass('plusmagi-item-details');
-		var $title = $('<span>').addClass('plusmagi-item-title').text(item.title);
+		var $details = $('<div>').addClass('wppm-item-details');
+		var $title = $('<span>').addClass('wppm-item-title').text(item.title);
 
 		// Append status pill for non-published posts (text only, no raw HTML)
 		if (mode !== 'term' && item.status && item.status !== 'publish') {
-			$('<span>').addClass('plusmagi-search-status-pill').text(item.status).appendTo($title);
+			$('<span>').addClass('wppm-search-status-pill').text(item.status).appendTo($title);
 		}
 
 		$details.append($title);
 
 		if (mode === 'post') {
-			$('<span>').addClass('plusmagi-item-info').text(item.date).appendTo($details);
+			$('<span>').addClass('wppm-item-info').text(item.date).appendTo($details);
 		}
 
 		$a.append($icon).append($details);
@@ -95,15 +95,15 @@ jQuery(document).ready(function ($) {
 		$results.empty();
 
 		// Tab headers
-		var $tabs = $('<div>').addClass('plusmagi-search-tabs');
-		$('<div>').addClass('plusmagi-tab').attr('data-tab', 'posts').text('Posts (' + buckets.posts.length + ')').appendTo($tabs);
-		$('<div>').addClass('plusmagi-tab').attr('data-tab', 'categories').text('Category (' + buckets.categories.length + ')').appendTo($tabs);
-		$('<div>').addClass('plusmagi-tab').attr('data-tab', 'tags').text('Tag (' + buckets.tags.length + ')').appendTo($tabs);
+		var $tabs = $('<div>').addClass('wppm-search-tabs');
+		$('<div>').addClass('wppm-tab').attr('data-tab', 'posts').text('Posts (' + buckets.posts.length + ')').appendTo($tabs);
+		$('<div>').addClass('wppm-tab').attr('data-tab', 'categories').text('Category (' + buckets.categories.length + ')').appendTo($tabs);
+		$('<div>').addClass('wppm-tab').attr('data-tab', 'tags').text('Tag (' + buckets.tags.length + ')').appendTo($tabs);
 
 		// Tab panels
-		var $panelPosts = $('<div>').addClass('plusmagi-tab-content').attr('id', 'tab-content-posts').hide().append(renderList(buckets.posts, 'post'));
-		var $panelCats = $('<div>').addClass('plusmagi-tab-content').attr('id', 'tab-content-categories').hide().append(renderList(buckets.categories, 'term'));
-		var $panelTags = $('<div>').addClass('plusmagi-tab-content').attr('id', 'tab-content-tags').hide().append(renderList(buckets.tags, 'term'));
+		var $panelPosts = $('<div>').addClass('wppm-tab-content').attr('id', 'tab-content-posts').hide().append(renderList(buckets.posts, 'post'));
+		var $panelCats = $('<div>').addClass('wppm-tab-content').attr('id', 'tab-content-categories').hide().append(renderList(buckets.categories, 'term'));
+		var $panelTags = $('<div>').addClass('wppm-tab-content').attr('id', 'tab-content-tags').hide().append(renderList(buckets.tags, 'term'));
 
 		$results.append($tabs).append($panelPosts).append($panelCats).append($panelTags).show();
 
@@ -112,16 +112,16 @@ jQuery(document).ready(function ($) {
 
 	function switchTab(tabName) {
 		activeTab = tabName;
-		$results.find('.plusmagi-tab').removeClass('active');
-		$results.find('.plusmagi-tab[data-tab="' + tabName + '"]').addClass('active');
+		$results.find('.wppm-tab').removeClass('active');
+		$results.find('.wppm-tab[data-tab="' + tabName + '"]').addClass('active');
 
-		$results.find('.plusmagi-tab-content').hide();
+		$results.find('.wppm-tab-content').hide();
 		$results.find('#tab-content-' + tabName).show();
 		repositionDropdown();
 	}
 
 	// 6. Event delegation for tab clicks
-	$results.on('mousedown', '.plusmagi-tab', function (e) {
+	$results.on('mousedown', '.wppm-tab', function (e) {
 		e.preventDefault(); // Prevent input blur before the click registers
 		switchTab($(this).data('tab'));
 	});
@@ -147,11 +147,11 @@ jQuery(document).ready(function ($) {
 
 		timer = setTimeout(function () {
 			$.ajax({
-				url: plusMagiSearch.root + 'plusmagi-search/v1/search',
+				url: wppmSearch.root + 'wppm-search/v1/search',
 				method: 'GET',
 				data: { term: term },
 				beforeSend: function (xhr) {
-					xhr.setRequestHeader('X-WP-Nonce', plusMagiSearch.nonce);
+					xhr.setRequestHeader('X-WP-Nonce', wppmSearch.nonce);
 				},
 				success: function (response) {
 					var buckets = { posts: [], categories: [], tags: [] };
@@ -181,8 +181,8 @@ jQuery(document).ready(function ($) {
 	// 8. Close dropdown when clicking outside the widget
 	$(document).on('click', function (e) {
 		if (
-			!$(e.target).closest('#plusmagi-search-input').length &&
-			!$(e.target).closest('#plusmagi-search-results').length
+			!$(e.target).closest('#wppm-search-input').length &&
+			!$(e.target).closest('#wppm-search-results').length
 		) {
 			$results.hide();
 		}
