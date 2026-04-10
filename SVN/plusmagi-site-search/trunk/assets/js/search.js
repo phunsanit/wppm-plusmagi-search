@@ -147,7 +147,7 @@ jQuery(document).ready(function ($) {
 
 		   timer = setTimeout(function () {
 			   $.ajax({
-				   url: pmSiteSearch.root + 'plusmagi-site-search/v1/search',
+				url: plusmagiSiteSearch.root + 'plusmagi-site-search/v1/search',
 				   method: 'GET',
 				   data: { term: term },
 				   beforeSend: function (xhr) {
@@ -181,8 +181,8 @@ jQuery(document).ready(function ($) {
 	// 8. Close dropdown when clicking outside the widget
 	   $(document).on('click', function (e) {
 		   if (
-			   !$(e.target).closest('#plusmagi-site-search-input').length &&
-			   !$(e.target).closest('#plusmagi-site-search-results').length
+			!$(e.target).closest('#plusmagi-site-search-input').length &&
+			!$(e.target).closest('#plusmagi-site-search-results').length
 		   ) {
 			   $results.hide();
 		   }

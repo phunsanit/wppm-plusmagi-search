@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # --- Configuration ---
-PM_ORG_SLUG="pm-search"
+PM_ORG_SLUG="plusmagi-site-search"
 SOURCE_DIR="./SourceCode"
 PM_ASSETS_SRC="./wp-assets"
 SVN_ROOT="./SVN/${PM_ORG_SLUG}"

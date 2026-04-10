@@ -1,7 +1,6 @@
 === PlusMagi Site Search ===
 Contributors: phunsanit
 Tags: search, frontend, admin-search, post-search, role-based
-
 Requires at least: 5.8
 Tested up to: 6.9
 Requires PHP: 7.2
@@ -40,9 +39,9 @@ For more information, visit [https://pitt.plusmagi.com](https://pitt.plusmagi.co
 
 == Installation ==
 
-1.  Upload the `plusmagi-site-search` directory to the `/PM-content/plugins/` directory.
+1.  Upload the `pm-site-search` directory to the `/PM-content/plugins/` directory.
 2.  Activate the plugin through the 'Plugins' menu in WordPress.
-3.  Place `[plusmagi-site-search]` in your page or post content.
+3.  Place `[pm-site-search]` in your page or post content.
 
 == Frequently Asked Questions ==
 

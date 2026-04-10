@@ -15,13 +15,37 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('PM_SITE_SEARCH_VERSION', '1.0.0');
-define('PM_SITE_SEARCH_FILE', __FILE__);
-define('PM_SITE_SEARCH_URL', plugin_dir_url(__FILE__));
-define('PM_SITE_SEARCH_PATH', plugin_dir_path(__FILE__));
+define('PLUSMAGI_SITE_SEARCH_VERSION', '1.0.0');
+define('PLUSMAGI_SITE_SEARCH_FILE', __FILE__);
+define('PLUSMAGI_SITE_SEARCH_URL', plugin_dir_url(__FILE__));
+define('PLUSMAGI_SITE_SEARCH_PATH', plugin_dir_path(__FILE__));
 
-class PM_Site_Search
-{
+class Plusmagi_Site_Search {
+	/**
+	 * Enqueue frontend scripts and styles on all public pages.
+	 */
+	public function enqueue_scripts()
+	{
+		wp_enqueue_script(
+			'plusmagi-site-search-js',
+			PLUSMAGI_SITE_SEARCH_URL . 'assets/js/search.js',
+			['jquery'],
+			PLUSMAGI_SITE_SEARCH_VERSION,
+			true
+		);
+
+		wp_enqueue_style(
+			'plusmagi-site-search-css',
+			PLUSMAGI_SITE_SEARCH_URL . 'assets/css/search.css',
+			['dashicons'],
+			PLUSMAGI_SITE_SEARCH_VERSION
+		);
+
+		wp_localize_script('plusmagi-site-search-js', 'plusmagiSiteSearch', [
+			'root'  => esc_url_raw(rest_url()),
+			'nonce' => wp_create_nonce('wp_rest'),
+		]);
+	}
 
 	private static $instance = null;
 
@@ -57,9 +81,9 @@ class PM_Site_Search
 	{
 		   wp_register_script(
 			   'plusmagi-site-search-block-js',
-			   PM_SITE_SEARCH_URL . 'assets/js/block.js',
-			   ['wp-blocks', 'wp-element'],
-			   PM_SITE_SEARCH_VERSION,
+			   PLUSMAGI_SITE_SEARCH_URL . 'assets/js/block.js',
+			   ['wp-blocks', 'wp-element', 'wp-editor'],
+			   PLUSMAGI_SITE_SEARCH_VERSION,
 			   true
 		   );
 
@@ -76,21 +100,17 @@ class PM_Site_Search
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-			<p><?php esc_html_e('Thank you for using PlusMagi Site Search! This plugin provides a frontend search experience similar to the WordPress admin search, with role-based access control.', 'plusmagi-site-search'); ?></p>
+			   <p><?php esc_html_e('Thank you for using PlusMagi Site Search! This plugin provides a frontend search experience similar to the WordPress admin search, with role-based access control.', 'plusmagi-site-search'); ?></p>
 
 			   <div class="wrap">
 				   <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
 				   <p><?php esc_html_e('Thank you for using PlusMagi Site Search! This plugin provides a frontend search experience similar to the WordPress admin search, with role-based access control.', 'plusmagi-site-search'); ?></p>
-				   <p><?php esc_html_e('Thank you for using PlusMagi Site Search! This plugin provides a frontend search experience similar to the WordPress admin search, with role-based access control.', 'plusmagi-site-search'); ?></p>
 				   <div class="card">
-					   <h2><?php esc_html_e('About the Developer', 'plusmagi-site-search'); ?></h2>
 					   <h2><?php esc_html_e('About the Developer', 'plusmagi-site-search'); ?></h2>
 					   <p>
 						   <?php esc_html_e('For support, updates, and more information, please visit our website:', 'plusmagi-site-search'); ?>
-						   <?php esc_html_e('For support, updates, and more information, please visit our website:', 'plusmagi-site-search'); ?>
 						   <br>
 						   <a href="https://plusmagi-site-search.plusmagi.com/" target="_blank" rel="noopener noreferrer">
-							   <strong><?php esc_html_e('Visit plusmagi-site-search.plusmagi.com →', 'plusmagi-site-search'); ?></strong>
 							   <strong><?php esc_html_e('Visit plusmagi-site-search.plusmagi.com →', 'plusmagi-site-search'); ?></strong>
 						   </a>
 					   </p>
@@ -109,20 +129,20 @@ class PM_Site_Search
 	{
 		   wp_enqueue_script(
 			   'plusmagi-site-search-js',
-			   PM_SITE_SEARCH_URL . 'assets/js/search.js',
+			   PLUSMAGI_SITE_SEARCH_URL . 'assets/js/search.js',
 			   ['jquery'],
-			   PM_SITE_SEARCH_VERSION,
+			   PLUSMAGI_SITE_SEARCH_VERSION,
 			   true
 		   );
 
 		   wp_enqueue_style(
 			   'plusmagi-site-search-css',
-			   PM_SITE_SEARCH_URL . 'assets/css/search.css',
+			   PLUSMAGI_SITE_SEARCH_URL . 'assets/css/search.css',
 			   ['dashicons'],
-			   PM_SITE_SEARCH_VERSION
+			   PLUSMAGI_SITE_SEARCH_VERSION
 		   );
 
-		   wp_localize_script('plusmagi-site-search-js', 'pmSiteSearch', [
+		   wp_localize_script('plusmagi-site-search-js', 'plusmagiSiteSearch', [
 			   'root'  => esc_url_raw(rest_url()),
 			   'nonce' => wp_create_nonce('wp_rest'),
 		   ]);
@@ -133,7 +153,7 @@ class PM_Site_Search
 		ob_start();
 		?>
 		   <div id="plusmagi-site-search-wrapper">
-			<input type="text" id="plusmagi-site-search-input" placeholder="<?php esc_attr_e('Search...', 'plusmagi-site-search'); ?>" autocomplete="off">
+			   <input type="text" id="plusmagi-site-search-input" placeholder="<?php esc_attr_e('Search...', 'plusmagi-site-search'); ?>" autocomplete="off">
 			   <div id="plusmagi-site-search-results"></div>
 		   </div>
 		<?php
@@ -366,4 +386,4 @@ class PM_Site_Search
 	}
 }
 
-new PM_Site_Search();
+Plusmagi_Site_Search::get_instance();

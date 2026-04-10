@@ -2,12 +2,12 @@
 	var el = element.createElement;
 	var registerBlockType = blocks.registerBlockType;
 
-	   registerBlockType('plusmagi-site-search/search', {
+	registerBlockType('plusmagi-site-search/search', {
 		   title: 'PlusMagi Site Search',
 		   icon: 'search',
 		   category: 'widgets',
 		   description: 'A dedicated search box with role-based access control.',
-		   keywords: ['search', 'find', 'plusmagi-site-search'],
+		keywords: ['search', 'find', 'plusmagi-site-search'],
 		   example: {},
 		   edit: function () {
 			   return el('div', { className: 'plusmagi-site-search-editor-wrapper' },
@@ -32,4 +32,4 @@
 			   return null; // Return null to render via PHP
 		   },
 	   });
-})(window.PM.blocks, window.PM.element);
+})(window.wp.blocks, window.wp.element);

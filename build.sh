@@ -3,7 +3,7 @@
 # --- Configuration ---
 PLUGIN_SLUG="plusmagi-site-search"
 DISPLAY_NAME="plusmagi-site-search"
-SOURCE_DIR="./SourceCode"
+SOURCE_DIR="./SVN/plusmagi-site-search/trunk"
 PM_ASSETS_DIR="./wp-assets"
 WEBSITE_BUILD_DIR="./Website/plusmagi-site-search.plusmagi.com/build"
 TEMP_DIR="temp_build"
@@ -11,7 +11,7 @@ TEMP_DIR="temp_build"
 main() {
 	cd "$(dirname "$0")" || exit
 
-	# 1. ดึง Version จาก SourceCode
+	# 1. ดึง Version จาก trunk
 	VERSION=$(grep -i "Version:" "$SOURCE_DIR/plusmagi-site-search.php" | awk -F: '{print $2}' | xargs)
 
 	if [ -z "$VERSION" ]; then
