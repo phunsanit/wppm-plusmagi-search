@@ -2,7 +2,7 @@
 const { test, expect } = require('@playwright/test');
 
 /**
- * WP Search — UI & functional tests
+ * PM Search — UI & functional tests
  *
  * Tests cover:
  *  1. Widget is present and visible
@@ -15,10 +15,10 @@ const { test, expect } = require('@playwright/test');
  */
 
 // Selector for the search input added by the plugin
-const SEARCH_INPUT = '#wp-search-input';
-const SEARCH_RESULT = '#wp-search-results';
+const SEARCH_INPUT = '#PM-search-input';
+const SEARCH_RESULT = '#PM-search-results';
 
-test.describe('WP Search — Widget', () => {
+test.describe('PM Search — Widget', () => {
 
     test.beforeEach(async ({ page }) => {
         // Navigate to the blog home where the widget sidebar is rendered.
@@ -37,23 +37,23 @@ test.describe('WP Search — Widget', () => {
     });
 
     test('scripts are loaded on the page', async ({ page }) => {
-        // Check that the plugin's JS was registered by WP (handle name contains 'plusmagi')
+        // Check that the plugin's JS was registered by PM (handle name contains 'plusmagi')
         const found = await page.evaluate(() =>
             Array.from(document.scripts)
-                .some(s => s.src.includes('wp-search') || s.src.includes('wp_search'))
+                .some(s => s.src.includes('PM-search') || s.src.includes('PM_search'))
         );
-        expect(found, 'wp-search.js should be enqueued on the page').toBe(true);
+        expect(found, 'PM-search.js should be enqueued on the page').toBe(true);
     });
 
-    test('wpSearch JS object is defined', async ({ page }) => {
-        const obj = await page.evaluate(() => typeof (/** @type {any} */(window)).wpSearch);
-        expect(obj, 'wpSearch should be localized on the page').toBe('object');
+    test('PMSearch JS object is defined', async ({ page }) => {
+        const obj = await page.evaluate(() => typeof (/** @type {any} */(window)).PMSearch);
+        expect(obj, 'PMSearch should be localized on the page').toBe('object');
     });
 
     test('typing fewer than 2 chars does NOT fire an API request', async ({ page }) => {
         const requests = [];
         page.on('request', req => {
-            if (req.url().includes('wp-search/v1/search')) requests.push(req);
+            if (req.url().includes('PM-search/v1/search')) requests.push(req);
         });
 
         await page.locator(SEARCH_INPUT).click();
@@ -67,14 +67,14 @@ test.describe('WP Search — Widget', () => {
     test('typing 2+ chars fires a REST API request', async ({ page }) => {
         let searchRequest = null;
         page.on('request', req => {
-            if (req.url().includes('wp-search/v1/search')) searchRequest = req;
+            if (req.url().includes('PM-search/v1/search')) searchRequest = req;
         });
 
         await page.locator(SEARCH_INPUT).click();
         await page.locator(SEARCH_INPUT).fill('jQuery');
         // Wait for the 300 ms debounce + network round-trip
         await page.waitForResponse(
-            res => res.url().includes('wp-search/v1/search') && res.status() === 200,
+            res => res.url().includes('PM-search/v1/search') && res.status() === 200,
             { timeout: 10_000 }
         );
 
@@ -86,7 +86,7 @@ test.describe('WP Search — Widget', () => {
         await page.locator(SEARCH_INPUT).fill('jQuery');
 
         await page.waitForResponse(
-            res => res.url().includes('wp-search/v1/search'),
+            res => res.url().includes('PM-search/v1/search'),
             { timeout: 10_000 }
         );
 
@@ -100,14 +100,14 @@ test.describe('WP Search — Widget', () => {
         await page.locator(SEARCH_INPUT).fill('jQuery');
 
         await page.waitForResponse(
-            res => res.url().includes('wp-search/v1/search'),
+            res => res.url().includes('PM-search/v1/search'),
             { timeout: 10_000 }
         );
         await page.waitForTimeout(300);
 
-        await expect(page.locator('.wp-tab[data-tab="posts"]')).toBeVisible();
-        await expect(page.locator('.wp-tab[data-tab="categories"]')).toBeVisible();
-        await expect(page.locator('.wp-tab[data-tab="tags"]')).toBeVisible();
+        await expect(page.locator('.PM-tab[data-tab="posts"]')).toBeVisible();
+        await expect(page.locator('.PM-tab[data-tab="categories"]')).toBeVisible();
+        await expect(page.locator('.PM-tab[data-tab="tags"]')).toBeVisible();
     });
 
     test('clicking a tab switches the visible panel', async ({ page }) => {
@@ -115,13 +115,13 @@ test.describe('WP Search — Widget', () => {
         await page.locator(SEARCH_INPUT).fill('jQuery');
 
         await page.waitForResponse(
-            res => res.url().includes('wp-search/v1/search'),
+            res => res.url().includes('PM-search/v1/search'),
             { timeout: 10_000 }
         );
         await page.waitForTimeout(300);
 
         // Click the Category tab
-        await page.locator('.wp-tab[data-tab="categories"]').click();
+        await page.locator('.PM-tab[data-tab="categories"]').click();
         await expect(page.locator('#tab-content-categories')).toBeVisible();
         await expect(page.locator('#tab-content-posts')).toBeHidden();
     });
@@ -131,7 +131,7 @@ test.describe('WP Search — Widget', () => {
         await page.locator(SEARCH_INPUT).fill('jQuery');
 
         await page.waitForResponse(
-            res => res.url().includes('wp-search/v1/search'),
+            res => res.url().includes('PM-search/v1/search'),
             { timeout: 10_000 }
         );
         await page.waitForTimeout(300);
@@ -142,7 +142,7 @@ test.describe('WP Search — Widget', () => {
     });
 });
 
-test.describe('WP Search — Prefix searches', () => {
+test.describe('PM Search — Prefix searches', () => {
 
     test.beforeEach(async ({ page }) => {
         await page.goto('/', { waitUntil: 'domcontentloaded', timeout: 60_000 });
@@ -152,11 +152,11 @@ test.describe('WP Search — Prefix searches', () => {
     test('"post:" prefix only fires a post search', async ({ page }) => {
         let url = '';
         page.on('request', req => {
-            if (req.url().includes('wp-search/v1/search')) url = req.url();
+            if (req.url().includes('PM-search/v1/search')) url = req.url();
         });
 
         const responsePromise = page.waitForResponse(
-            res => res.url().includes('wp-search/v1/search'),
+            res => res.url().includes('PM-search/v1/search'),
             { timeout: 10_000 }
         );
         // click() first to ensure focus — required in Firefox for jQuery's input event
@@ -170,7 +170,7 @@ test.describe('WP Search — Prefix searches', () => {
     test('"tag:" prefix query resolves successfully', async ({ page }) => {
         // Set up the response waiter BEFORE triggering the request
         const responsePromise = page.waitForResponse(
-            res => res.url().includes('wp-search/v1/search') && res.status() === 200,
+            res => res.url().includes('PM-search/v1/search') && res.status() === 200,
             { timeout: 10_000 }
         );
         // click() first to ensure focus — required in Firefox for jQuery's input event
@@ -183,7 +183,7 @@ test.describe('WP Search — Prefix searches', () => {
     test('"category:" prefix query resolves successfully', async ({ page }) => {
         // Set up the response waiter BEFORE triggering the request
         const responsePromise = page.waitForResponse(
-            res => res.url().includes('wp-search/v1/search') && res.status() === 200,
+            res => res.url().includes('PM-search/v1/search') && res.status() === 200,
             { timeout: 10_000 }
         );
         // click() first to ensure focus — required in Firefox for jQuery's input event
@@ -194,16 +194,16 @@ test.describe('WP Search — Prefix searches', () => {
     });
 });
 
-test.describe('WP Search — REST API', () => {
+test.describe('PM Search — REST API', () => {
 
-    test('GET /wp-json/wp-search/v1/search returns 400 without term', async ({ request }) => {
-        const res = await request.get('/wp-json/wp-search/v1/search');
-        // Without required `term` param the WP REST API returns 400
+    test('GET /PM-json/PM-search/v1/search returns 400 without term', async ({ request }) => {
+        const res = await request.get('/PM-json/PM-search/v1/search');
+        // Without required `term` param the PM REST API returns 400
         expect(res.status()).toBe(400);
     });
 
-    test('GET /wp-json/wp-search/v1/search?term=jQuery returns 200 JSON array', async ({ request }) => {
-        const res = await request.get('/wp-json/wp-search/v1/search?term=jQuery');
+    test('GET /PM-json/PM-search/v1/search?term=jQuery returns 200 JSON array', async ({ request }) => {
+        const res = await request.get('/PM-json/PM-search/v1/search?term=jQuery');
         expect(res.status()).toBe(200);
 
         const body = await res.json();
@@ -211,7 +211,7 @@ test.describe('WP Search — REST API', () => {
     });
 
     test('each result item has required fields', async ({ request }) => {
-        const res = await request.get('/wp-json/wp-search/v1/search?term=jQuery');
+        const res = await request.get('/PM-json/PM-search/v1/search?term=jQuery');
         expect(res.status()).toBe(200);
 
         /** @type {Array<Record<string,unknown>>} */
@@ -225,7 +225,7 @@ test.describe('WP Search — REST API', () => {
     });
 
     test('unauthenticated search returns only published posts', async ({ request }) => {
-        const res = await request.get('/wp-json/wp-search/v1/search?term=jQuery');
+        const res = await request.get('/PM-json/PM-search/v1/search?term=jQuery');
         const items = await res.json();
 
         const posts = items.filter((/** @type {any} */ i) => i.type === 'post');
@@ -235,7 +235,7 @@ test.describe('WP Search — REST API', () => {
     });
 
     test('1-char term returns 400 (validate_callback rejects it)', async ({ request }) => {
-        const res = await request.get('/wp-json/wp-search/v1/search?term=a');
+        const res = await request.get('/PM-json/PM-search/v1/search?term=a');
         expect(res.status()).toBe(400);
     });
 });

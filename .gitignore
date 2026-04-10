@@ -11,3 +11,8 @@ thumbs.db
 build/
 node_modules/
 temp_build/
+
+# Playwright
+Playwright/playwright-report/
+Playwright/test-results/
+Playwright/test-snapshots/

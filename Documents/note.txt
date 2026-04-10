@@ -1,0 +1,1 @@
+tree -I 'node_modules|.git|.svn|.DS_Store|temp_build|playwright-report|test-results'

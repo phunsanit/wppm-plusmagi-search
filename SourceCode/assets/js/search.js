@@ -1,6 +1,6 @@
 jQuery(document).ready(function ($) {
-	var $input = $('#wppm-search-input');
-	var $results = $('#wppm-search-results');
+	var $input = $('#plusmagi-site-search-input');
+	var $results = $('#plusmagi-site-search-results');
 	var timer;
 	var activeTab = 'posts'; // Default tab
 
@@ -12,21 +12,21 @@ jQuery(document).ready(function ($) {
 
 	// 2. Position dropdown beneath the input.
 	//	Uses position:fixed + getBoundingClientRect() so the coordinates are
-	//	relative to the viewport and never need updating on scroll.
+	//	relative to the viePMort and never need updating on scroll.
 	//	This avoids the Firefox "scroll-linked positioning effect" warning
 	//	caused by reading layout information inside a scroll event handler.
-	function repositionDropdown() {
-		if (!$input.is(':visible')) return;
-		var rect = $input[0].getBoundingClientRect();
+	   function repositionDropdown() {
+		   if (!$input.is(':visible')) return;
+		   var rect = $input[0].getBoundingClientRect();
 
-		$results.css({
-			'top': (rect.bottom + 4) + 'px',
-			'left': rect.left + 'px',
-			'width': rect.width + 'px',
-			'position': 'fixed',
-			'z-index': 999999
-		});
-	}
+		   $results.css({
+			   'top': (rect.bottom + 4) + 'px',
+			   'left': rect.left + 'px',
+			   'width': rect.width + 'px',
+			   'position': 'fixed',
+			   'z-index': 999999
+		   });
+	   }
 
 	// Only reposition on resize (not scroll — fixed positioning handles that).
 	$(window).on('resize', function () {
@@ -38,11 +38,11 @@ jQuery(document).ready(function ($) {
 	function buildItem(item, mode) {
 		var $li = $('<li>');
 		var $a = $('<a>').attr('href', item.link);
-		var $icon = $('<div>').addClass('wppm-item-icon');
+		var $icon = $('<div>').addClass('pm-item-icon');
 
 		if (item.thumbnail) {
 			$('<img>')
-				.addClass('wppm-item-thumb')
+				.addClass('pm-item-thumb')
 				.attr('src', item.thumbnail)
 				.attr('alt', '')
 				.appendTo($icon);
@@ -59,18 +59,18 @@ jQuery(document).ready(function ($) {
 				.appendTo($icon);
 		}
 
-		var $details = $('<div>').addClass('wppm-item-details');
-		var $title = $('<span>').addClass('wppm-item-title').text(item.title);
+		var $details = $('<div>').addClass('pm-item-details');
+		var $title = $('<span>').addClass('pm-item-title').text(item.title);
 
 		// Append status pill for non-published posts (text only, no raw HTML)
 		if (mode !== 'term' && item.status && item.status !== 'publish') {
-			$('<span>').addClass('wppm-search-status-pill').text(item.status).appendTo($title);
+			$('<span>').addClass('pm-search-status-pill').text(item.status).appendTo($title);
 		}
 
 		$details.append($title);
 
 		if (mode === 'post') {
-			$('<span>').addClass('wppm-item-info').text(item.date).appendTo($details);
+			$('<span>').addClass('pm-item-info').text(item.date).appendTo($details);
 		}
 
 		$a.append($icon).append($details);
@@ -95,15 +95,15 @@ jQuery(document).ready(function ($) {
 		$results.empty();
 
 		// Tab headers
-		var $tabs = $('<div>').addClass('wppm-search-tabs');
-		$('<div>').addClass('wppm-tab').attr('data-tab', 'posts').text('Posts (' + buckets.posts.length + ')').appendTo($tabs);
-		$('<div>').addClass('wppm-tab').attr('data-tab', 'categories').text('Category (' + buckets.categories.length + ')').appendTo($tabs);
-		$('<div>').addClass('wppm-tab').attr('data-tab', 'tags').text('Tag (' + buckets.tags.length + ')').appendTo($tabs);
+		var $tabs = $('<div>').addClass('pm-search-tabs');
+		$('<div>').addClass('pm-tab').attr('data-tab', 'posts').text('Posts (' + buckets.posts.length + ')').appendTo($tabs);
+		$('<div>').addClass('pm-tab').attr('data-tab', 'categories').text('Category (' + buckets.categories.length + ')').appendTo($tabs);
+		$('<div>').addClass('pm-tab').attr('data-tab', 'tags').text('Tag (' + buckets.tags.length + ')').appendTo($tabs);
 
 		// Tab panels
-		var $panelPosts = $('<div>').addClass('wppm-tab-content').attr('id', 'tab-content-posts').hide().append(renderList(buckets.posts, 'post'));
-		var $panelCats = $('<div>').addClass('wppm-tab-content').attr('id', 'tab-content-categories').hide().append(renderList(buckets.categories, 'term'));
-		var $panelTags = $('<div>').addClass('wppm-tab-content').attr('id', 'tab-content-tags').hide().append(renderList(buckets.tags, 'term'));
+		var $panelPosts = $('<div>').addClass('pm-tab-content').attr('id', 'tab-content-posts').hide().append(renderList(buckets.posts, 'post'));
+		var $panelCats = $('<div>').addClass('pm-tab-content').attr('id', 'tab-content-categories').hide().append(renderList(buckets.categories, 'term'));
+		var $panelTags = $('<div>').addClass('pm-tab-content').attr('id', 'tab-content-tags').hide().append(renderList(buckets.tags, 'term'));
 
 		$results.append($tabs).append($panelPosts).append($panelCats).append($panelTags).show();
 
@@ -112,16 +112,16 @@ jQuery(document).ready(function ($) {
 
 	function switchTab(tabName) {
 		activeTab = tabName;
-		$results.find('.wppm-tab').removeClass('active');
-		$results.find('.wppm-tab[data-tab="' + tabName + '"]').addClass('active');
+		$results.find('.pm-tab').removeClass('active');
+		$results.find('.pm-tab[data-tab="' + tabName + '"]').addClass('active');
 
-		$results.find('.wppm-tab-content').hide();
+		$results.find('.pm-tab-content').hide();
 		$results.find('#tab-content-' + tabName).show();
 		repositionDropdown();
 	}
 
 	// 6. Event delegation for tab clicks
-	$results.on('mousedown', '.wppm-tab', function (e) {
+	$results.on('mousedown', '.pm-tab', function (e) {
 		e.preventDefault(); // Prevent input blur before the click registers
 		switchTab($(this).data('tab'));
 	});
@@ -134,57 +134,57 @@ jQuery(document).ready(function ($) {
 	});
 
 	// 7. Main search handler
-	$input.on('input', function () {
-		var term = $(this).val();
-		clearTimeout(timer);
+	   $input.on('input', function () {
+		   var term = $(this).val();
+		   clearTimeout(timer);
 
-		if (term.length < 2) {
-			$results.hide().empty();
-			return;
-		}
+		   if (term.length < 2) {
+			   $results.hide().empty();
+			   return;
+		   }
 
-		repositionDropdown();
+		   repositionDropdown();
 
-		timer = setTimeout(function () {
-			$.ajax({
-				url: wppmSearch.root + 'wppm-search/v1/search',
-				method: 'GET',
-				data: { term: term },
-				beforeSend: function (xhr) {
-					xhr.setRequestHeader('X-WP-Nonce', wppmSearch.nonce);
-				},
-				success: function (response) {
-					var buckets = { posts: [], categories: [], tags: [] };
+		   timer = setTimeout(function () {
+			   $.ajax({
+				   url: pmSiteSearch.root + 'plusmagi-site-search/v1/search',
+				   method: 'GET',
+				   data: { term: term },
+				   beforeSend: function (xhr) {
+					   xhr.setRequestHeader('X-PM-Nonce', pmSiteSearch.nonce);
+				   },
+				   success: function (response) {
+					   var buckets = { posts: [], categories: [], tags: [] };
 
-					$.each(response, function (i, item) {
-						if (item.type === 'post') {
-							buckets.posts.push(item);
-						} else if (item.original_type === 'category') {
-							buckets.categories.push(item);
-						} else if (item.original_type === 'post_tag') {
-							buckets.tags.push(item);
-						}
-					});
+					   $.each(response, function (i, item) {
+						   if (item.type === 'post') {
+							   buckets.posts.push(item);
+						   } else if (item.original_type === 'category') {
+							   buckets.categories.push(item);
+						   } else if (item.original_type === 'post_tag') {
+							   buckets.tags.push(item);
+						   }
+					   });
 
-					renderTabs(buckets);
-				},
-				error: function () {
-					$results.empty()
-						.append($('<div>').addClass('error').text('Error retrieving results.'))
-						.show();
-					repositionDropdown();
-				}
-			});
-		}, 300);
-	});
+					   renderTabs(buckets);
+				   },
+				   error: function () {
+					   $results.empty()
+						   .append($('<div>').addClass('error').text('Error retrieving results.'))
+						   .show();
+					   repositionDropdown();
+				   }
+			   });
+		   }, 300);
+	   });
 
 	// 8. Close dropdown when clicking outside the widget
-	$(document).on('click', function (e) {
-		if (
-			!$(e.target).closest('#wppm-search-input').length &&
-			!$(e.target).closest('#wppm-search-results').length
-		) {
-			$results.hide();
-		}
-	});
+	   $(document).on('click', function (e) {
+		   if (
+			   !$(e.target).closest('#plusmagi-site-search-input').length &&
+			   !$(e.target).closest('#plusmagi-site-search-results').length
+		   ) {
+			   $results.hide();
+		   }
+	   });
 });

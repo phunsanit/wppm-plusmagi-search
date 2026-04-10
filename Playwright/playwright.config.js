@@ -2,7 +2,7 @@
 const { defineConfig, devices } = require('@playwright/test');
 
 /**
- * Playwright configuration for WP Search plugin tests.
+ * Playwright configuration for PM Search plugin tests.
  * Target: https://pitt.plusmagi.com  (live WordPress site with plugin installed)
  *
  * Run all tests:      npx playwright test
