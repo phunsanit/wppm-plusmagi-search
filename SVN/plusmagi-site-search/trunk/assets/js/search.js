@@ -28,8 +28,8 @@ jQuery(document).ready(function ($) {
 		   });
 	   }
 
-	// Only reposition on resize (not scroll — fixed positioning handles that).
-	$(window).on('resize', function () {
+	// Reposition on resize and scroll so the dropdown tracks the input.
+	$(window).on('resize scroll', function () {
 		if ($results.is(':visible')) repositionDropdown();
 	});
 
@@ -38,11 +38,11 @@ jQuery(document).ready(function ($) {
 	function buildItem(item, mode) {
 		var $li = $('<li>');
 		var $a = $('<a>').attr('href', item.link);
-		var $icon = $('<div>').addClass('pm-item-icon');
+		var $icon = $('<div>').addClass('plusmagi-site-search-item-icon');
 
 		if (item.thumbnail) {
 			$('<img>')
-				.addClass('pm-item-thumb')
+				.addClass('plusmagi-site-search-item-thumb')
 				.attr('src', item.thumbnail)
 				.attr('alt', '')
 				.appendTo($icon);
@@ -59,18 +59,18 @@ jQuery(document).ready(function ($) {
 				.appendTo($icon);
 		}
 
-		var $details = $('<div>').addClass('pm-item-details');
-		var $title = $('<span>').addClass('pm-item-title').text(item.title);
+		var $details = $('<div>').addClass('plusmagi-site-search-item-details');
+		var $title = $('<span>').addClass('plusmagi-site-search-item-title').text(item.title);
 
 		// Append status pill for non-published posts (text only, no raw HTML)
 		if (mode !== 'term' && item.status && item.status !== 'publish') {
-			$('<span>').addClass('pm-search-status-pill').text(item.status).appendTo($title);
+			$('<span>').addClass('plusmagi-site-search-status-pill').text(item.status).appendTo($title);
 		}
 
 		$details.append($title);
 
 		if (mode === 'post') {
-			$('<span>').addClass('pm-item-info').text(item.date).appendTo($details);
+			$('<span>').addClass('plusmagi-site-search-item-info').text(item.date).appendTo($details);
 		}
 
 		$a.append($icon).append($details);
@@ -81,7 +81,7 @@ jQuery(document).ready(function ($) {
 	// 4. Render a list of items into a <ul>
 	function renderList(items, mode) {
 		if (items.length === 0) {
-			return $('<div>').addClass('no-results').text('No results found.');
+			return $('<div>').addClass('plusmagi-site-search-no-results').text('No results found.');
 		}
 		var $ul = $('<ul>');
 		$.each(items, function (i, item) {
@@ -95,15 +95,15 @@ jQuery(document).ready(function ($) {
 		$results.empty();
 
 		// Tab headers
-		var $tabs = $('<div>').addClass('pm-search-tabs');
-		$('<div>').addClass('pm-tab').attr('data-tab', 'posts').text('Posts (' + buckets.posts.length + ')').appendTo($tabs);
-		$('<div>').addClass('pm-tab').attr('data-tab', 'categories').text('Category (' + buckets.categories.length + ')').appendTo($tabs);
-		$('<div>').addClass('pm-tab').attr('data-tab', 'tags').text('Tag (' + buckets.tags.length + ')').appendTo($tabs);
+		var $tabs = $('<div>').addClass('plusmagi-site-search-tabs');
+		$('<div>').addClass('plusmagi-site-search-tab').attr('data-tab', 'posts').text('Posts (' + buckets.posts.length + ')').appendTo($tabs);
+		$('<div>').addClass('plusmagi-site-search-tab').attr('data-tab', 'categories').text('Category (' + buckets.categories.length + ')').appendTo($tabs);
+		$('<div>').addClass('plusmagi-site-search-tab').attr('data-tab', 'tags').text('Tag (' + buckets.tags.length + ')').appendTo($tabs);
 
 		// Tab panels
-		var $panelPosts = $('<div>').addClass('pm-tab-content').attr('id', 'tab-content-posts').hide().append(renderList(buckets.posts, 'post'));
-		var $panelCats = $('<div>').addClass('pm-tab-content').attr('id', 'tab-content-categories').hide().append(renderList(buckets.categories, 'term'));
-		var $panelTags = $('<div>').addClass('pm-tab-content').attr('id', 'tab-content-tags').hide().append(renderList(buckets.tags, 'term'));
+		var $panelPosts = $('<div>').addClass('plusmagi-site-search-tab-content').attr('id', 'tab-content-posts').hide().append(renderList(buckets.posts, 'post'));
+		var $panelCats = $('<div>').addClass('plusmagi-site-search-tab-content').attr('id', 'tab-content-categories').hide().append(renderList(buckets.categories, 'term'));
+		var $panelTags = $('<div>').addClass('plusmagi-site-search-tab-content').attr('id', 'tab-content-tags').hide().append(renderList(buckets.tags, 'term'));
 
 		$results.append($tabs).append($panelPosts).append($panelCats).append($panelTags).show();
 
@@ -112,16 +112,16 @@ jQuery(document).ready(function ($) {
 
 	function switchTab(tabName) {
 		activeTab = tabName;
-		$results.find('.pm-tab').removeClass('active');
-		$results.find('.pm-tab[data-tab="' + tabName + '"]').addClass('active');
+		$results.find('.plusmagi-site-search-tab').removeClass('active');
+		$results.find('.plusmagi-site-search-tab[data-tab="' + tabName + '"]').addClass('active');
 
-		$results.find('.pm-tab-content').hide();
+		$results.find('.plusmagi-site-search-tab-content').hide();
 		$results.find('#tab-content-' + tabName).show();
 		repositionDropdown();
 	}
 
 	// 6. Event delegation for tab clicks
-	$results.on('mousedown', '.pm-tab', function (e) {
+	$results.on('mousedown', '.plusmagi-site-search-tab', function (e) {
 		e.preventDefault(); // Prevent input blur before the click registers
 		switchTab($(this).data('tab'));
 	});
@@ -151,7 +151,7 @@ jQuery(document).ready(function ($) {
 				   method: 'GET',
 				   data: { term: term },
 				   beforeSend: function (xhr) {
-					   xhr.setRequestHeader('X-PM-Nonce', pmSiteSearch.nonce);
+					   xhr.setRequestHeader('X-PM-Nonce', plusmagiSiteSearch.nonce);
 				   },
 				   success: function (response) {
 					   var buckets = { posts: [], categories: [], tags: [] };
@@ -170,7 +170,7 @@ jQuery(document).ready(function ($) {
 				   },
 				   error: function () {
 					   $results.empty()
-						   .append($('<div>').addClass('error').text('Error retrieving results.'))
+						   .append($('<div>').addClass('plusmagi-site-search-error').text('Error retrieving results.'))
 						   .show();
 					   repositionDropdown();
 				   }

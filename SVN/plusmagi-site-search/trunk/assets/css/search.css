@@ -89,21 +89,19 @@
 /* Tab Content */
 .plusmagi-site-search-tab-content {
 	padding: 0;
-	/* max-height is handled by the parent container usually */
 }
 
- .pm-site-search-tab-content ul {
+.plusmagi-site-search-tab-content ul {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
 
- .pm-site-search-tab-content li {
+.plusmagi-site-search-tab-content li {
 	border-bottom: 1px solid #f0f0f0;
 }
 
-
-.pm-site-search-tab-content a {
+.plusmagi-site-search-tab-content a {
 	display: flex;
 	align-items: center;
 	padding: 10px 12px;
@@ -112,12 +110,12 @@
 	transition: background-color 0.1s ease;
 }
 
-.pm-site-search-tab-content a:hover {
+.plusmagi-site-search-tab-content a:hover {
 	background: var(--wp--preset--color--hover, #f9f9f9);
 }
 
 /* Icons & Details */
- .pm-site-search-item-icon {
+.plusmagi-site-search-item-icon {
 	margin-right: 12px;
 	color: #8c8f94;
 	display: flex;
@@ -126,7 +124,7 @@
 	min-width: 24px;
 }
 
- .pm-site-search-item-thumb {
+.plusmagi-site-search-item-thumb {
 	width: 32px;
 	height: 32px;
 	object-fit: cover;
@@ -134,27 +132,27 @@
 	border: 1px solid #ddd;
 }
 
- .pm-site-search-item-details {
+.plusmagi-site-search-item-details {
 	display: flex;
 	flex-direction: column;
 	flex: 1;
 }
 
- .pm-site-search-item-title {
+.plusmagi-site-search-item-title {
 	font-weight: 500;
 	font-size: 14px;
 	line-height: 1.4;
 	color: #1d2327;
 }
 
- .pm-site-search-item-info {
+.plusmagi-site-search-item-info {
 	font-size: 12px;
 	color: #646970;
 	margin-top: 2px;
 }
 
 /* Status Pills */
- .pm-site-search-status-pill {
+.plusmagi-site-search-status-pill {
 	display: inline-block;
 	padding: 2px 6px;
 	font-size: 10px;
@@ -167,8 +165,8 @@
 	vertical-align: middle;
 }
 
-.no-results,
-.error {
+.plusmagi-site-search-no-results,
+.plusmagi-site-search-error {
 	padding: 16px;
 	text-align: center;
 	color: #646970;

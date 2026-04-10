@@ -21,31 +21,6 @@ define('PLUSMAGI_SITE_SEARCH_URL', plugin_dir_url(__FILE__));
 define('PLUSMAGI_SITE_SEARCH_PATH', plugin_dir_path(__FILE__));
 
 class Plusmagi_Site_Search {
-	/**
-	 * Enqueue frontend scripts and styles on all public pages.
-	 */
-	public function enqueue_scripts()
-	{
-		wp_enqueue_script(
-			'plusmagi-site-search-js',
-			PLUSMAGI_SITE_SEARCH_URL . 'assets/js/search.js',
-			['jquery'],
-			PLUSMAGI_SITE_SEARCH_VERSION,
-			true
-		);
-
-		wp_enqueue_style(
-			'plusmagi-site-search-css',
-			PLUSMAGI_SITE_SEARCH_URL . 'assets/css/search.css',
-			['dashicons'],
-			PLUSMAGI_SITE_SEARCH_VERSION
-		);
-
-		wp_localize_script('plusmagi-site-search-js', 'plusmagiSiteSearch', [
-			'root'  => esc_url_raw(rest_url()),
-			'nonce' => wp_create_nonce('wp_rest'),
-		]);
-	}
 
 	private static $instance = null;
 
@@ -100,52 +75,42 @@ class Plusmagi_Site_Search {
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-			   <p><?php esc_html_e('Thank you for using PlusMagi Site Search! This plugin provides a frontend search experience similar to the WordPress admin search, with role-based access control.', 'plusmagi-site-search'); ?></p>
+			<p><?php esc_html_e('Thank you for using PlusMagi Site Search!', 'plusmagi-site-search'); ?></p>
+			<div class="card">
+				<h2><?php esc_html_e('About the Developer', 'plusmagi-site-search'); ?></h2>
+				<p>
+					<?php esc_html_e('For support, updates, and more information, please visit our website:', 'plusmagi-site-search'); ?>
+					<br>
+					<a href="https://plusmagi-site-search.plusmagi.com/" target="_blank" rel="noopener noreferrer">
+						<strong><?php esc_html_e('Visit plusmagi-site-search.plusmagi.com →', 'plusmagi-site-search'); ?></strong>
+					</a>
+				</p>
+			</div>
+		</div>
+		<?php
+	}
 
-			   <div class="wrap">
-				   <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-				   <p><?php esc_html_e('Thank you for using PlusMagi Site Search! This plugin provides a frontend search experience similar to the WordPress admin search, with role-based access control.', 'plusmagi-site-search'); ?></p>
-				   <div class="card">
-					   <h2><?php esc_html_e('About the Developer', 'plusmagi-site-search'); ?></h2>
-					   <p>
-						   <?php esc_html_e('For support, updates, and more information, please visit our website:', 'plusmagi-site-search'); ?>
-						   <br>
-						   <a href="https://plusmagi-site-search.plusmagi.com/" target="_blank" rel="noopener noreferrer">
-							   <strong><?php esc_html_e('Visit plusmagi-site-search.plusmagi.com →', 'plusmagi-site-search'); ?></strong>
-						   </a>
-					   </p>
-				   </div>
-			   </div>
-	/**
-	 * Enqueue frontend scripts and styles on all public pages.
-	 *
-	 * The search widget can be placed in sidebars, widget areas, or theme
-	 * templates where $post->post_content is never involved, so checking
-	 * has_shortcode() / has_block() is not a reliable gate. Loading two
-	 * small files on every frontend page is the correct approach for any
-	 * plugin whose output location cannot be predicted at enqueue time.
-	 */
 	public function enqueue_scripts()
 	{
-		   wp_enqueue_script(
-			   'plusmagi-site-search-js',
-			   PLUSMAGI_SITE_SEARCH_URL . 'assets/js/search.js',
-			   ['jquery'],
-			   PLUSMAGI_SITE_SEARCH_VERSION,
-			   true
-		   );
+		wp_enqueue_script(
+			'plusmagi-site-search-js',
+			PLUSMAGI_SITE_SEARCH_URL . 'assets/js/search.js',
+			['jquery'],
+			PLUSMAGI_SITE_SEARCH_VERSION,
+			true
+		);
 
-		   wp_enqueue_style(
-			   'plusmagi-site-search-css',
-			   PLUSMAGI_SITE_SEARCH_URL . 'assets/css/search.css',
-			   ['dashicons'],
-			   PLUSMAGI_SITE_SEARCH_VERSION
-		   );
+		wp_enqueue_style(
+			'plusmagi-site-search-css',
+			PLUSMAGI_SITE_SEARCH_URL . 'assets/css/search.css',
+			['dashicons'],
+			PLUSMAGI_SITE_SEARCH_VERSION
+		);
 
-		   wp_localize_script('plusmagi-site-search-js', 'plusmagiSiteSearch', [
-			   'root'  => esc_url_raw(rest_url()),
-			   'nonce' => wp_create_nonce('wp_rest'),
-		   ]);
+		wp_localize_script('plusmagi-site-search-js', 'plusmagiSiteSearch', [
+			'root'  => esc_url_raw(rest_url()),
+			'nonce' => wp_create_nonce('wp_rest'),
+		]);
 	}
 
 	public function render_shortcode()
