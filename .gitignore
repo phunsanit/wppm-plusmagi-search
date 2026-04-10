@@ -13,6 +13,8 @@ node_modules/
 temp_build/
 
 # Playwright
+Playwright/.env
+Playwright/auth/admin-state.json
 Playwright/playwright-report/
 Playwright/test-results/
 Playwright/test-snapshots/

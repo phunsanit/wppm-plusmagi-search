@@ -1,1 +1,8 @@
 tree -I 'node_modules|.git|.svn|.DS_Store|temp_build|playwright-report|test-results'
+
+# Guest tests (ทั้ง 3 browser)
+cd Playwright && npx playwright test
+
+# Block tests (ต้องใส่ password admin)
+cd Playwright && npx playwright test --project=setup
+npx playwright test --project=admin
