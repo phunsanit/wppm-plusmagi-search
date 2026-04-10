@@ -3,7 +3,7 @@
 # --- Configuration ---
 PLUGIN_SLUG="plusmagi-site-search"
 DISPLAY_NAME="plusmagi-site-search"
-SOURCE_DIR="./SVN/plusmagi-site-search/trunk"
+SOURCE_DIR="./SVN/trunk"
 PM_ASSETS_DIR="./wp-assets"
 WEBSITE_BUILD_DIR="./Website/plusmagi-site-search.plusmagi.com/build"
 TEMP_DIR="temp_build"

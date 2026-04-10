@@ -2,9 +2,9 @@
 
 # --- Configuration ---
 PM_ORG_SLUG="plusmagi-site-search"
-SOURCE_DIR="./SourceCode"
+SOURCE_DIR="./SVN/trunk"
 PM_ASSETS_SRC="./wp-assets"
-SVN_ROOT="./SVN/${PM_ORG_SLUG}"
+SVN_ROOT="./SVN"
 SVN_TRUNK="${SVN_ROOT}/trunk"
 SVN_ASSETS="${SVN_ROOT}/assets"
 
