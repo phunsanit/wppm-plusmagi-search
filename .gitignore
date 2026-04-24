@@ -18,3 +18,9 @@ Playwright/auth/admin-state.json
 Playwright/playwright-report/
 Playwright/test-results/
 Playwright/test-snapshots/
+
+# SVN metadata
+.svn/
+SVN/.svn/
+SVN/tags/
+SVN/branches/
