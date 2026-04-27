@@ -20,3 +20,5 @@ svn checkout https://plugins.svn.wordpress.org/plusmagi-site-search
 # ใช้ svn update, svn add, svn commit, svn status ได้ในโฟลเดอร์นี้
 
 ---------------------------------------------------------------------------------------------------
+
+https://wordpress.org/plugins/developers/add/

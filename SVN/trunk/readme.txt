@@ -33,15 +33,15 @@ PlusMagi Site Search is a powerful plugin that enhances your site's search funct
 	*   **Thumbnails**: Shows featured images if available.
 	*   **Theme Integration**: Inherits site colors automatically.
 *   **High Performance**: AJAX-powered, lightweight, no bloat.
-*   **Developer Friendly**: Simple shortcode `[plusmagi-site-search]` and Block support.
+*   **Developer Friendly**: Simple shortcode `[plusmagi_search]` and Block support.
 
 For more information, visit [https://pitt.plusmagi.com](https://pitt.plusmagi.com).
 
 == Installation ==
 
-1.  Upload the `plusmagi-site-search` directory to the `/PM-content/plugins/` directory.
+1.  Upload the `plusmagi-site-search` directory to the `/wp-content/plugins/` directory.
 2.  Activate the plugin through the 'Plugins' menu in WordPress.
-3.  Place `[plusmagi-site-search]` in your page or post content.
+3.  Place `[plusmagi_search]` in your page or post content.
 
 == Frequently Asked Questions ==
 
