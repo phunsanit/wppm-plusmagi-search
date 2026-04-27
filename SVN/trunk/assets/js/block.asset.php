@@ -1,4 +1,6 @@
-<?php return array(
+<?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+return array(
 	'dependencies' => array(
 		'wp-blocks',
 		'wp-element',

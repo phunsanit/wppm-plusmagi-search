@@ -85,7 +85,7 @@
         </ol>
         <h3 class="text-xl font-semibold mt-4 mb-2">Add to Theme</h3>
         <ul class="list-disc list-inside space-y-1 mb-6">
-          <li>Add <code>[plusmagi_search]</code> (or <code>[wp_search]</code>) to any page or post content</li>
+          <li>Add <code>[plusmagi_search]</code> to any page or post content</li>
           <li>Or insert the shortcode directly in your theme file, for example:<br>
             <code>&lt;?php echo do_shortcode('[plusmagi_search]'); ?&gt;</code>
           </li>
