@@ -5,6 +5,12 @@ node_modules/
 dist/
 coverage/
 
+# SVN mirror/metadata
+SVN/
+.svn/
+**/.svn/
+**/.backup/
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
