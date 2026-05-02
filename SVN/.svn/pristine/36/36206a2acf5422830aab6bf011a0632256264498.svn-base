@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "build": "cd Website && npm install && npm run build",
+    "test": "cd Website && npm test || echo 'No tests defined.'"
+  },
+  "dependencies": {
+    "vue-router": "^4.6.4"
+  }
+}
