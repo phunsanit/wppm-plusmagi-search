@@ -4,7 +4,7 @@
     <nav class="fixed top-0 w-full z-50 bg-[rgba(9,20,33,0.7)] backdrop-blur-lg shadow-lg h-20 flex items-center">
       <div class="flex justify-between items-center w-full px-8 max-w-7xl mx-auto h-full">
         <div class="flex items-center gap-8">
-          <span class="text-xl font-bold text-[#d9e3f6] tracking-tighter">PlusMagi Site Search</span>
+          <a href="https://plusmagi-site-search.plusmagi.com" target="_blank" rel="noopener noreferrer" class="text-xl font-bold text-[#d9e3f6] tracking-tighter">PlusMagi Site Search</a>
           <div class="hidden md:flex gap-6">
             <a class="text-[#ffb4a4] font-bold border-b-2 border-[#ff5634] pb-1 tracking-tighter" href="#">Home</a>
             <a class="text-[#d9e3f6]/80 hover:text-[#ffb4a4] tracking-tighter" href="#documentation">Documentation</a>
