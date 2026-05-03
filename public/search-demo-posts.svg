@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="436" height="228" viewBox="0 0 436 228" role="img" aria-label="Posts tab preview">
+  <rect width="436" height="228" fill="#efefef"/>
+
+  <rect x="20" y="18" width="379" height="43" rx="4" fill="#ffffff" stroke="#2f6dbf" stroke-width="2"/>
+  <text x="34" y="47" font-family="Arial, sans-serif" font-size="14" fill="#2d2d2d">ajax</text>
+
+  <rect x="20" y="70" width="374" height="40" fill="#f3f3f3" stroke="#d7d7d7"/>
+  <line x1="146" y1="70" x2="146" y2="110" stroke="#d7d7d7"/>
+  <line x1="270" y1="70" x2="270" y2="110" stroke="#d7d7d7"/>
+  <text x="84" y="95" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#2f2f2f">Posts (20)</text>
+  <text x="208" y="95" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#2f2f2f">Category (0)</text>
+  <text x="333" y="95" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#2f2f2f">Tag (2)</text>
+
+  <rect x="20" y="110" width="374" height="39" fill="#ffffff" stroke="#e4e4e4"/>
+  <text x="36" y="136" font-family="Arial, sans-serif" font-size="12" fill="#4c4c4c">📌</text>
+  <text x="50" y="134" font-family="Arial, sans-serif" font-size="10" fill="#222">WordPress: search ง่าย ๆ แบบ ajax</text>
+  <text x="50" y="145" font-family="Arial, sans-serif" font-size="9" fill="#6c6c6c">2021-06-12</text>
+
+  <rect x="20" y="149" width="374" height="39" fill="#ffffff" stroke="#e4e4e4"/>
+  <text x="36" y="175" font-family="Arial, sans-serif" font-size="12" fill="#4c4c4c">📌</text>
+  <text x="50" y="173" font-family="Arial, sans-serif" font-size="10" fill="#222">slick: carousel / slideshow จาก ajax</text>
+  <text x="50" y="184" font-family="Arial, sans-serif" font-size="9" fill="#6c6c6c">2019-01-26</text>
+
+  <rect x="20" y="188" width="374" height="39" fill="#ffffff" stroke="#e4e4e4"/>
+  <text x="36" y="214" font-family="Arial, sans-serif" font-size="12" fill="#1f66d1">📌</text>
+  <text x="50" y="212" font-family="Arial, sans-serif" font-size="10" fill="#222">jQuery: Ajax รับข้อมูลแบบ stream</text>
+  <text x="50" y="223" font-family="Arial, sans-serif" font-size="9" fill="#6c6c6c">2016-10-29</text>
+</svg>

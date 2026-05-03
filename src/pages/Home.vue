@@ -36,13 +36,81 @@
             <a href="https://pitt.plusmagi.com" target="_blank" class="bg-[#e12a00] text-white px-10 py-4 font-bold tracking-tighter rounded-sm hover:bg-[#ff5c3b] transition-all active:scale-95">Live Demo</a>
             <a href="https://wordpress.org/plugins/plusmagi-site-search/" target="_blank" rel="noopener noreferrer" class="bg-[#ff8f77] text-[#4b0700] px-10 py-4 font-bold tracking-tighter rounded-sm hover:bg-[#ffb4a4] transition-all active:scale-95">Get Started</a>
           </div>
-          <div class="mt-12 max-w-4xl mx-auto">
-            <img
-              class="w-full rounded border border-[#2b394a]"
-              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='620' viewBox='0 0 1200 620'%3E%3Crect width='1200' height='620' fill='%23172739'/%3E%3Crect x='80' y='90' width='1040' height='60' rx='8' fill='%23040f1c'/%3E%3Crect x='95' y='107' width='420' height='26' rx='4' fill='%23d9e3f6' opacity='0.35'/%3E%3Crect x='80' y='170' width='1040' height='360' rx='10' fill='%230b1828'/%3E%3Crect x='110' y='210' width='220' height='36' rx='6' fill='%23e12a00'/%3E%3Crect x='350' y='210' width='220' height='36' rx='6' fill='%232b394a'/%3E%3Crect x='590' y='210' width='220' height='36' rx='6' fill='%232b394a'/%3E%3Crect x='110' y='272' width='980' height='48' rx='6' fill='%231a2b3f'/%3E%3Crect x='110' y='334' width='980' height='48' rx='6' fill='%231a2b3f'/%3E%3Crect x='110' y='396' width='980' height='48' rx='6' fill='%231a2b3f'/%3E%3C/svg%3E"
-              alt="WordPress Ajax search results with thumbnails"
-              loading="lazy"
-            />
+          <div class="mt-12 max-w-6xl mx-auto text-left">
+            <h2 class="text-2xl font-bold mb-4 text-[#ff8f77]">Live Search Preview: All 3 Tabs</h2>
+            <div class="grid md:grid-cols-3 gap-4">
+              <figure class="bg-[#111f31] rounded border border-[#2b394a] p-3">
+                <div class="demo-search-card">
+                  <input class="demo-search-input" value="ajax" readonly />
+                  <div class="demo-tabs">
+                    <div class="demo-tab demo-tab-active">Posts (20)</div>
+                    <div class="demo-tab">Category (0)</div>
+                    <div class="demo-tab">Tag (2)</div>
+                  </div>
+                  <div class="demo-results">
+                    <div class="demo-item">
+                      <span class="demo-icon">📌</span>
+                      <div>
+                        <div class="demo-title">WordPress: search ง่าย ๆ แบบ ajax</div>
+                        <div class="demo-date">2021-06-12</div>
+                      </div>
+                    </div>
+                    <div class="demo-item">
+                      <span class="demo-icon">📌</span>
+                      <div>
+                        <div class="demo-title">slick: carousel / slideshow จาก ajax</div>
+                        <div class="demo-date">2019-01-26</div>
+                      </div>
+                    </div>
+                    <div class="demo-item">
+                      <span class="demo-icon demo-icon-highlight">📌</span>
+                      <div>
+                        <div class="demo-title">jQuery: Ajax รับข้อมูลแบบ stream</div>
+                        <div class="demo-date">2016-10-29</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <figcaption class="text-sm text-[#c6d3ea] mt-2">Posts Tab</figcaption>
+              </figure>
+
+              <figure class="bg-[#111f31] rounded border border-[#2b394a] p-3">
+                <div class="demo-search-card">
+                  <input class="demo-search-input" value="ajax" readonly />
+                  <div class="demo-tabs">
+                    <div class="demo-tab">Posts (20)</div>
+                    <div class="demo-tab demo-tab-active">Category (0)</div>
+                    <div class="demo-tab">Tag (2)</div>
+                  </div>
+                  <div class="demo-results">
+                    <div class="demo-empty">No results found.</div>
+                  </div>
+                </div>
+                <figcaption class="text-sm text-[#c6d3ea] mt-2">Category Tab</figcaption>
+              </figure>
+
+              <figure class="bg-[#111f31] rounded border border-[#2b394a] p-3">
+                <div class="demo-search-card">
+                  <input class="demo-search-input" value="ajax" readonly />
+                  <div class="demo-tabs">
+                    <div class="demo-tab">Posts (20)</div>
+                    <div class="demo-tab">Category (0)</div>
+                    <div class="demo-tab demo-tab-active">Tag (2)</div>
+                  </div>
+                  <div class="demo-results">
+                    <div class="demo-item">
+                      <span class="demo-icon">🏷</span>
+                      <div class="demo-title">AJAX</div>
+                    </div>
+                    <div class="demo-item">
+                      <span class="demo-icon demo-icon-highlight">🏷</span>
+                      <div class="demo-title">Ajax Search</div>
+                    </div>
+                  </div>
+                </div>
+                <figcaption class="text-sm text-[#c6d3ea] mt-2">Tag Tab</figcaption>
+              </figure>
+            </div>
           </div>
         </div>
       </section>
@@ -196,5 +264,93 @@
 }
 body {
   font-family: 'Inter', sans-serif;
+}
+
+.demo-search-card {
+  background: #ececec;
+  border: 1px solid #d7d7d7;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.demo-search-input {
+  width: calc(100% - 24px);
+  margin: 12px;
+  border: 2px solid #3b82f6;
+  border-radius: 4px;
+  padding: 8px 10px;
+  color: #2f2f2f;
+  background: #fff;
+  font-size: 14px;
+}
+
+.demo-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid #d7d7d7;
+  border-bottom: 1px solid #d7d7d7;
+  background: #f3f3f3;
+}
+
+.demo-tab {
+  text-align: center;
+  font-size: 12px;
+  color: #2f2f2f;
+  padding: 10px 6px;
+  border-right: 1px solid #d7d7d7;
+}
+
+.demo-tab:last-child {
+  border-right: none;
+}
+
+.demo-tab-active {
+  font-weight: 700;
+}
+
+.demo-results {
+  background: #fff;
+}
+
+.demo-item {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border-top: 1px solid #e4e4e4;
+}
+
+.demo-item:first-child {
+  border-top: none;
+}
+
+.demo-icon {
+  font-size: 14px;
+  line-height: 1;
+  color: #4c4c4c;
+  margin-top: 2px;
+}
+
+.demo-icon-highlight {
+  color: #1f66d1;
+}
+
+.demo-title {
+  color: #222;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.demo-date {
+  color: #6c6c6c;
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.demo-empty {
+  color: #333;
+  font-size: 12px;
+  text-align: center;
+  padding: 18px 10px;
 }
 </style>

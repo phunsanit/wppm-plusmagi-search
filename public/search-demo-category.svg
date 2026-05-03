@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="448" height="199" viewBox="0 0 448 199" role="img" aria-label="Category tab preview no results">
+  <rect width="448" height="199" fill="#efefef"/>
+
+  <rect x="22" y="28" width="383" height="43" rx="4" fill="#ffffff" stroke="#2f6dbf" stroke-width="2"/>
+  <text x="34" y="47" font-family="Arial, sans-serif" font-size="14" fill="#2d2d2d">ajax</text>
+
+  <rect x="22" y="81" width="373" height="37" fill="#f3f3f3" stroke="#d7d7d7"/>
+  <line x1="147" y1="81" x2="147" y2="118" stroke="#d7d7d7"/>
+  <line x1="271" y1="81" x2="271" y2="118" stroke="#d7d7d7"/>
+  <text x="84" y="95" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#2f2f2f">Posts (20)</text>
+  <text x="209" y="95" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#2f2f2f">Category (0)</text>
+  <text x="333" y="95" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#2f2f2f">Tag (2)</text>
+
+  <rect x="22" y="118" width="373" height="80" fill="#ffffff" stroke="#d7d7d7"/>
+  <text x="208" y="165" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333333">No results found.</text>
+</svg>
