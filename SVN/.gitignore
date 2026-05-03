@@ -1,0 +1,5 @@
+.svn
+tags/
+branches/
+assets/
+!trunk/assets/

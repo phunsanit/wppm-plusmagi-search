@@ -1,0 +1,30 @@
+# บอกว่าเป็นไฟล์ระดับบนสุดของโปรเจกต์
+root = true
+
+# ตั้งค่าเฉพาะไฟล์ Markdown (ใช้ 2 spaces)
+[*.md]
+indent_size = 2
+trim_trailing_whitespace = false
+
+# ตั้งค่าเฉพาะไฟล์ในโฟลเดอร์ lib
+[lib/**.js]
+indent_style = tab
+
+# ตั้งค่าสำหรับทุกไฟล์
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+spelling_language = th_TH
+tab_width = 4
+trim_trailing_whitespace = true
+
+# C# Files
+[*.cs]
+indent_size = 4
+indent_style = tab
+insert_final_newline = true
+tab_width = 4
+trim_trailing_whitespace = true
