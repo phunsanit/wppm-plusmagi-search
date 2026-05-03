@@ -21,24 +21,36 @@
       <section class="relative min-h-[707px] flex flex-col justify-center items-center px-8 text-center overflow-hidden">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,48,3,0.05)_0%,transparent_70%)] pointer-events-none"></div>
         <div class="max-w-4xl relative z-10">
-          <span class="text-[#ff8f77] tracking-[0.2em] font-bold text-[0.6875rem] uppercase mb-6 block">VERSION 1.0.0 NOW LIVE</span>
+          <span class="text-[#ff8f77] tracking-[0.2em] font-bold text-[0.6875rem] uppercase mb-6 block">VERSION 1.0.1 NOW LIVE</span>
           <h1 class="text-5xl md:text-7xl font-extrabold tracking-[-0.04em] leading-[1.1] mb-8">
-            Powerful Search for <br />
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#ff8f77] to-[#e12a00]">Modern WordPress</span> Sites
+            WordPress Ajax Search Plugin <br />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#ff8f77] to-[#e12a00]">for Fast, Role-Based Results</span>
           </h1>
           <p class="text-[#a1acbd] text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-            Transform your standard WordPress search into a high-performance, deep-indexed architectural component built for scale.
+            PlusMagi Site Search helps teams run a lightweight WordPress search plugin with Ajax UI, role-based access control, and deep custom field indexing.
+          </p>
+          <p class="text-[#d7e4fb] text-base md:text-lg max-w-3xl mx-auto mb-10 leading-relaxed">
+            Experience the Fastest Ajax Search for WordPress with Role-Based Security. Live Search requests are powered by REST API endpoints, so results appear instantly while keeping server overhead low for a true zero-bloat architecture.
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="https://pitt.plusmagi.com" target="_blank" class="bg-[#e12a00] text-white px-10 py-4 font-bold tracking-tighter rounded-sm hover:bg-[#ff5c3b] transition-all active:scale-95">Live Demo</a>
-            <a href="#" class="bg-[#ff8f77] text-[#4b0700] px-10 py-4 font-bold tracking-tighter rounded-sm hover:bg-[#ffb4a4] transition-all active:scale-95">Get Started</a>
+            <a href="https://wordpress.org/plugins/plusmagi-site-search/" target="_blank" rel="noopener noreferrer" class="bg-[#ff8f77] text-[#4b0700] px-10 py-4 font-bold tracking-tighter rounded-sm hover:bg-[#ffb4a4] transition-all active:scale-95">Get Started</a>
+          </div>
+          <div class="mt-12 max-w-4xl mx-auto">
+            <img
+              class="w-full rounded border border-[#2b394a]"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='620' viewBox='0 0 1200 620'%3E%3Crect width='1200' height='620' fill='%23172739'/%3E%3Crect x='80' y='90' width='1040' height='60' rx='8' fill='%23040f1c'/%3E%3Crect x='95' y='107' width='420' height='26' rx='4' fill='%23d9e3f6' opacity='0.35'/%3E%3Crect x='80' y='170' width='1040' height='360' rx='10' fill='%230b1828'/%3E%3Crect x='110' y='210' width='220' height='36' rx='6' fill='%23e12a00'/%3E%3Crect x='350' y='210' width='220' height='36' rx='6' fill='%232b394a'/%3E%3Crect x='590' y='210' width='220' height='36' rx='6' fill='%232b394a'/%3E%3Crect x='110' y='272' width='980' height='48' rx='6' fill='%231a2b3f'/%3E%3Crect x='110' y='334' width='980' height='48' rx='6' fill='%231a2b3f'/%3E%3Crect x='110' y='396' width='980' height='48' rx='6' fill='%231a2b3f'/%3E%3C/svg%3E"
+              alt="WordPress Ajax search results with thumbnails"
+              loading="lazy"
+            />
           </div>
         </div>
       </section>
 
       <!-- Features Section -->
       <section class="max-w-4xl mx-auto mt-16 px-4">
-        <h2 class="text-3xl font-bold mb-8 text-[#ff8f77]">Features</h2>
+        <h2 class="text-3xl font-bold mb-4 text-[#ff8f77]">Why Choose PlusMagi Site Search?</h2>
+        <h3 class="text-xl font-semibold mb-8 text-[#d9e3f6]">Advanced Filtering for WordPress with Zero-Bloat Performance</h3>
         <div class="overflow-x-auto mb-8">
           <table class="min-w-full border border-[#3e4958] rounded text-left">
             <thead class="bg-[#172739]">
@@ -65,13 +77,72 @@
         </div>
         <ul class="grid md:grid-cols-2 gap-6 text-left">
           <li><b>Strict Access Control</b> (see table above)</li>
-          <li><b>Advanced Filtering & Search Logic</b> (Custom Fields, Prefixes)</li>
+          <li><b>Advanced Filtering & Search Logic</b> (Custom Fields, Prefixes, Taxonomies)</li>
           <li><b>Rich Results</b> (Thumbnails, Tabs)</li>
           <li><b>Admin-Like UI</b></li>
           <li><b>Theme Integration</b></li>
           <li><b>High Performance</b> (AJAX, Lightweight)</li>
           <li><b>Developer Friendly</b> (Shortcode, Block support)</li>
         </ul>
+      </section>
+
+      <!-- Use Cases Section -->
+      <section class="max-w-5xl mx-auto mt-16 px-4">
+        <h2 class="text-3xl font-bold mb-4 text-[#ff8f77]">Use Cases That Drive Organic Traffic</h2>
+        <h3 class="text-xl font-semibold mb-8 text-[#d9e3f6]">Role-based search WordPress and custom-field discovery in real projects</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <article class="bg-[#172739] rounded p-6 border border-[#2b394a]">
+            <h3 class="text-xl font-semibold mb-3 text-[#ffb4a4]">How to enable SKU search in WordPress</h3>
+            <p class="text-[#c6d3ea] leading-relaxed">
+              Show merchants how to search WooCommerce products by SKU using custom field indexing. This targets users searching for "Search custom fields WordPress".
+            </p>
+          </article>
+          <article class="bg-[#172739] rounded p-6 border border-[#2b394a]">
+            <h3 class="text-xl font-semibold mb-3 text-[#ffb4a4]">Managing search privacy for membership sites</h3>
+            <p class="text-[#c6d3ea] leading-relaxed">
+              Explain how role-based visibility prevents private content leakage, ideal for teams comparing "Role-based search WordPress" plugins.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Who Is It For Section -->
+      <section class="max-w-5xl mx-auto mt-16 px-4">
+        <h2 class="text-3xl font-bold mb-4 text-[#ff8f77]">Who Is It For?</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <article class="bg-[#111f31] rounded p-6 border border-[#2b394a]">
+            <h3 class="text-xl font-semibold mb-3 text-[#ffb4a4]">Membership Sites</h3>
+            <p class="text-[#c6d3ea] leading-relaxed">
+              Role-Based Access Control ensures each member level sees only authorized search results, reducing accidental content exposure in private communities.
+            </p>
+          </article>
+          <article class="bg-[#111f31] rounded p-6 border border-[#2b394a]">
+            <h3 class="text-xl font-semibold mb-3 text-[#ffb4a4]">E-commerce & Catalogs</h3>
+            <p class="text-[#c6d3ea] leading-relaxed">
+              Deep custom-field and meta-data indexing helps customers find products by SKU, product code, and other catalog-specific identifiers.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- SEO Summary Section -->
+      <section class="max-w-5xl mx-auto mt-16 px-4 mb-20">
+        <h2 class="text-3xl font-bold mb-4 text-[#ff8f77]">Technical SEO Checklist</h2>
+        <h3 class="text-xl font-semibold mb-8 text-[#d9e3f6]">Built for mobile-friendly search UX and Core Web Vitals</h3>
+        <div class="grid md:grid-cols-3 gap-5 text-left">
+          <div class="bg-[#111f31] rounded p-5 border border-[#2b394a]">
+            <h3 class="text-lg font-semibold mb-2 text-[#ffb4a4]">Performance</h3>
+            <p class="text-[#c6d3ea]">Lightweight frontend and Ajax-only requests help maintain fast interactive search performance.</p>
+          </div>
+          <div class="bg-[#111f31] rounded p-5 border border-[#2b394a]">
+            <h3 class="text-lg font-semibold mb-2 text-[#ffb4a4]">Mobile Friendly</h3>
+            <p class="text-[#c6d3ea]">Responsive layouts and touch-friendly controls keep search usable on phones and tablets.</p>
+          </div>
+          <div class="bg-[#111f31] rounded p-5 border border-[#2b394a]">
+            <h3 class="text-lg font-semibold mb-2 text-[#ffb4a4]">Structured Data</h3>
+            <p class="text-[#c6d3ea]">SoftwareApplication schema helps search engines classify this page as a WordPress plugin product.</p>
+          </div>
+        </div>
       </section>
 
       <!-- Documentation Section -->
@@ -92,6 +163,21 @@
         </ul>
         <div class="bg-[#172739] rounded p-4 text-sm text-[#dee9fc]">
           <b>Tip:</b> You can customize the CSS via your theme or a Custom CSS plugin to match your site design.
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="max-w-4xl mx-auto mt-16 px-4 mb-20">
+        <h2 class="text-3xl font-bold mb-8 text-[#ff8f77]">FAQ</h2>
+        <div class="space-y-4">
+          <details class="bg-[#111f31] border border-[#2b394a] rounded p-4">
+            <summary class="cursor-pointer font-semibold text-[#ffb4a4]">Does it search Custom Fields?</summary>
+            <p class="mt-3 text-[#c6d3ea]">Yes, PlusMagi Site Search indexes post meta and custom fields automatically.</p>
+          </details>
+          <details class="bg-[#111f31] border border-[#2b394a] rounded p-4">
+            <summary class="cursor-pointer font-semibold text-[#ffb4a4]">Is it secure?</summary>
+            <p class="mt-3 text-[#c6d3ea]">Absolutely, it uses permission callbacks to ensure users only see search results they are authorized to view.</p>
+          </details>
         </div>
       </section>
     </main>
