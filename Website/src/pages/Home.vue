@@ -21,7 +21,7 @@
       <section class="relative min-h-[707px] flex flex-col justify-center items-center px-8 text-center overflow-hidden">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,48,3,0.05)_0%,transparent_70%)] pointer-events-none"></div>
         <div class="max-w-4xl relative z-10">
-          <span class="text-[#ff8f77] tracking-[0.2em] font-bold text-[0.6875rem] uppercase mb-6 block">VERSION 1.0.0 NOW LIVE</span>
+          <span class="text-[#ff8f77] tracking-[0.2em] font-bold text-[0.6875rem] uppercase mb-6 block">VERSION 1.0.1 NOW LIVE</span>
           <h1 class="text-5xl md:text-7xl font-extrabold tracking-[-0.04em] leading-[1.1] mb-8">
             Powerful Search for <br />
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#ff8f77] to-[#e12a00]">Modern WordPress</span> Sites
@@ -30,9 +30,14 @@
             Transform your standard WordPress search into a high-performance, deep-indexed architectural component built for scale.
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://pitt.plusmagi.com" target="_blank" class="bg-[#e12a00] text-white px-10 py-4 font-bold tracking-tighter rounded-sm hover:bg-[#ff5c3b] transition-all active:scale-95">Live Demo</a>
+            <a href="https://plusmagi-site-search.plusmagi.com" target="_blank" class="bg-[#e12a00] text-white px-10 py-4 font-bold tracking-tighter rounded-sm hover:bg-[#ff5c3b] transition-all active:scale-95">Live Demo</a>
             <a href="#" class="bg-[#ff8f77] text-[#4b0700] px-10 py-4 font-bold tracking-tighter rounded-sm hover:bg-[#ffb4a4] transition-all active:scale-95">Get Started</a>
           </div>
+          <img
+            src="/wp-assets/banner-1544x500.png"
+            alt="PlusMagi Site Search banner"
+            class="mt-10 w-full max-w-4xl rounded border border-[#3e4958] shadow-2xl shadow-[#e12a00]/20"
+          />
         </div>
       </section>
 
@@ -85,13 +90,29 @@
         </ol>
         <h3 class="text-xl font-semibold mt-4 mb-2">Add to Theme</h3>
         <ul class="list-disc list-inside space-y-1 mb-6">
-          <li>Add <code>[plusmagi_search]</code> to any page or post content</li>
+          <li>Add <code>[plusmagi-site-search]</code> to any page or post content</li>
           <li>Or insert the shortcode directly in your theme file, for example:<br>
-            <code>&lt;?php echo do_shortcode('[plusmagi_search]'); ?&gt;</code>
+            <code>&lt;?php echo do_shortcode('[plusmagi-site-search]'); ?&gt;</code>
           </li>
         </ul>
         <div class="bg-[#172739] rounded p-4 text-sm text-[#dee9fc]">
           <b>Tip:</b> You can customize the CSS via your theme or a Custom CSS plugin to match your site design.
+        </div>
+
+        <h3 class="text-xl font-semibold mt-8 mb-2">FAQ</h3>
+        <div class="space-y-4">
+          <div>
+            <h4 class="font-semibold text-[#ffb4a4]">Does it support Private Posts?</h4>
+            <p class="text-[#c8d3e6]">Yes, but only for users with the appropriate permissions (like Admins or Editors).</p>
+          </div>
+          <div>
+            <h4 class="font-semibold text-[#ffb4a4]">Can it search WooCommerce SKUs?</h4>
+            <p class="text-[#c8d3e6]">Yes. By enabling Custom Field search, it can index and find products by their SKU.</p>
+          </div>
+          <div>
+            <h4 class="font-semibold text-[#ffb4a4]">Does it slow down my site?</h4>
+            <p class="text-[#c8d3e6]">No, the plugin is optimized with lightweight Ajax calls to ensure high performance.</p>
+          </div>
         </div>
       </section>
     </main>
